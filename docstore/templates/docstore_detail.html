@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<table>
+		<tr><td><input type="hidden" name="dsid" value="{{ document.pk }}"></input></td></tr>
+		<tr><th>Тип документа:</th><td>{{document.doctype}}</a></td></tr>
+		<tr><th>Наименование:</th><td>{{document.name}}</a></td></tr>
+		<tr><th>Номер:</th><td>{{document.number}}</a></td></tr>
+		<tr><th>Дата:</th><td>{{document.date}}</a></td></tr>
+		<tr><th>Файл:</th><td><a href = "{{ document.docfile.url }}">загрузить</a></td></tr>
+		<tr><th>Примечание:</th><td>{{document.note}}</a></td></tr>
+	</table>
+{% endblock %}
+
+

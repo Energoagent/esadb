@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead><tr><th>[x]</th><th>НАЗВАНИЕ</th><th>АДРЕС</th><th>ВЛАДЕЛЕЦ</th></tr></thead>
+		<tbody>
+			{% for einst in einst_list%}
+				<tr>
+					<td><input type="radio" name="einstid" value="{{einst.pk}}"></input></td>
+					<td> {{ einst.name }} </td>
+					<td> {{ einst.adress }} </td>
+					<td> {{ einst.owner }} </td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

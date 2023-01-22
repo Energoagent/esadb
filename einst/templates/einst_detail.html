@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><th><input type="hidden" name="einstid" value="{{ einst.pk}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ einst.id}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="ownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="ownerid" value="{{ einst.id}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="chownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="chownerid" value="{{ einst.id}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="cntownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="cntownerid" value="{{ einst.id}}"></input></td> </tr>
+		<tr><th>Наименование объекта:</th><td> {{ einst.name}}</td></tr>
+		<tr><th>Адрес:</th><td> {{ einst.adress }}</td></tr>
+		<tr><th>Владелец:</th><td> {{ einst.owner }}</td></tr>
+		<tr><th>Контакты:</th><td> {{ einst.contactinfo }}</td></tr>
+		<tr><th>Информация:</th><td> {{ einst.info }}</td></tr>
+		<tr><th>Примечание:</th><td> {{ einst.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

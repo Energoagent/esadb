@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+    <table>
+		<tr><td><input type="hidden" name="cddirid" value="{{cddirid}}"></input></td></tr>
+		{{ form.as_table }}
+    </table>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td><input type="hidden" name="mdid" value="{{meterdir.id}}"></input></td></tr>
+		<tr><td><input type="hidden" name="meterid" value="{{meterid}}"></input></td></tr>
+		<tr><th>СПРАВОЧНИК</th></tr>
+		<tr><th>Модель:</th><td>{{meterdir.model}}</td></tr>
+		<tr><th>Номер ГРСИ:</th><td>{{meterdir.regnumber}}</td></tr>
+		<tr><th>Класс точности:</th> <td>{{ meterdir.classae }} / {{ meterdir.classpe }}</td> </tr>
+		{{ form.as_table }}
+	</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead><tr>
+			<th>[x]</th>
+			<th>ОБЪЕКТ</th>
+			<th>МОДЕЛЬ</th>
+			<th>СЕРИЙНЫЙ НОМЕР</th>
+			<th>СПРАВОЧНИК</th>
+			<th>ИНФОРМАЦИЯ</th>
+		</tr></thead>
+		<tbody>
+			{% for commdevice in commdevice_list %}
+				<tr>
+					<td><input type="radio" name="cdid" value="{{commdevice.pk}}"></input></td>
+					<td> {{ commdevice.einst }}</td>
+					<td> {{ commdevice.cdmodel }}</td>
+					<td> {{ commdevice.sn }}</td>
+					<td> {{ commdevice.cddir }}</td>
+					<td> {{ commdevice.info }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

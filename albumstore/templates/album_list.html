@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% block content %}
+		<table>
+			<thead><tr><th>[x]</th><th>НАИМЕНОВАНИЕ</th><th>ИНФОРМАЦИЯ</th><th>ПАПКА</th></tr></thead>
+			<tbody>
+				{% for album in albumstore_list%}
+					<tr>
+						<td><input type="radio" name="albumid" value="{{album.pk}}"></input></td>
+						<td>{{ album.name }}</td>
+						<td>{{ album.note }}</td>
+						<td>{{ album.folder }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+{% endblock %}

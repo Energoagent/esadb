@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<input type="hidden" name ="projectid" value ="{{ project.pk }}"></input>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ project.pk }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="cntownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="cntownerid" value="{{ project.pk }}"></input></td> </tr>
+	<table>
+		<tr><td>Название:</td> <td>{{ project.name }}</td></tr>
+		<tr><td>Информация:</td> <td>{{ project.info }}</td></tr>
+		<tr><td>Примечание:</td> <td>{{ project.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

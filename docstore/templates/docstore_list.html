@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<table>
+		<thead><tr><th>[x]</th><th>ТИП</th><th>НАИМЕНОВАНИЕ</th><th>НОМЕР</th><th>ДАТА</th><th>ФАЙЛ</th></tr></thead>
+		<tbody>
+			{% for doc1 in docstore_list%}
+				<tr>
+					<td><input type="radio" name="dsid" value="{{doc1.pk}}"></input></td>
+					<td>{{ doc1.doctype }}</td>
+					<td>{{ doc1.name }}</td>
+					<td>{{ doc1.number }}</td>
+					<td>{{ doc1.date }}</td>
+					<td><a href = "{{ doc1.docfile.url }}">загрузить</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

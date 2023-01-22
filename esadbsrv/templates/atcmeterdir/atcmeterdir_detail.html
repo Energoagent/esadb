@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td>Уникальный идентификатор:</td> <td>{{ meterdir.code}}</td></tr>
+		<tr><td>Модель:</td> <td>{{ meterdir.model }}</td></tr>
+		<tr><td>Номер в ГРСИ:</td> <td>{{ meterdir.regnumber }}</td></tr>
+		<tr><td>Модификация:</td> <td>{{ meterdir.modification }}</td></tr>
+		<tr><td>Класс точности:</td> <td>{{ meterdir.classae }} / {{ meterdir.classre }}</td></tr>
+		<tr><td>Межповерочный интервал:</td> <td>{{ meterdir.colibrationint }}</td></tr>
+		<tr><td>Производитель:</td> <td>{{ meterdir.fabricator }}</td></tr>
+		<tr><td>Измерительные каналы:</td> <td>{{ meterdir.channelae }} / {{ meterdir.channelre }}</td></tr>
+		<tr><td>Примечание:</td> <td>{{ meterdir.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

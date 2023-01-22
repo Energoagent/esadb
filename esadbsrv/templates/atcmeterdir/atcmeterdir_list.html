@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead><tr><th>[x]</th><th>МОДЕЛЬ</th><th>ИЗГОТОВИТЕЛЬ</th><th>ГРСИ</th><th>МОДИФИКАЦИЯ</th></tr></thead>
+		<tbody>
+			{% for meterdir in atcmeterdir_list%}
+				<tr>
+					<td><input type="radio" name="mdid" value="{{meterdir.id}}"></input></td>
+					<td>{{ meterdir.model }}</td>
+					<td>{{ meterdir.fabricator }}</td>
+					<td>{{ meterdir.regnumber }}</td>
+					<td>{{ meterdir.modification }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

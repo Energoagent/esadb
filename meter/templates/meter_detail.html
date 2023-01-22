@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+		<tr><th><input type="hidden" name="meterid" value="{{ meter.id}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ dsownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ meter.id}}"></input></td> </tr>
+		<tr><th>ИИК:</th> <td>{{ meter.mic }}</td> </tr>
+		<tr><th>Б/П:</th> <td>{{ meter.bl }}</td> </tr>
+		<tr><th>Модель:</th> <td>{{ meter.mtrmodel }}</td> </tr>
+		<tr><th>Справочник:</th> <td>{{ meter.mtrdir }}</td> </tr>
+		<tr><th>Завод-изготовитель:</th> <td>{{ meter.mtrdir.fabric }}</td> </tr>
+		<tr><th>Серийный номер:</th> <td>{{ meter.sn}}</td> </tr>
+		<tr><th>Дата выпуска:</th> <td>{{ meter.fbdate }}</td> </tr>
+		<tr><th>Дата поверки:</th> <td>{{ meter.cldate }}</td> </tr>
+		<tr><th>Класс точности</th> <td>{{ meter.classae }} / {{ meter.classre }}</td> </tr>
+		<tr><th>Каналы A/R:</th> <td>{{ meter.channelae }} / {{ meter.channelre }}</td> </tr>
+		<tr><th>Информация:</th> <td>{{ meter.info }}</td> </tr>
+		<tr><th>Примечание:</th> <td>{{ meter.note }}</td> </tr>
+{% endblock %}   .
+
+

@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead><tr><th>[x]</th><th>ФАМИЛИЯ ИО</th><th>ДАННЫЕ</th><th>ИНФО</th></tr></thead>
+		<tbody>
+			{% for contact in contact_list%}
+				<tr>
+					<td><input type="radio" name="contactid" value="{{contact.pk}}"></input></td>
+					<td> {{ contact.name }} </td>
+					<td> {{ contact.contactinfo }} </td>
+					<td> {{ contact.info }} </td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

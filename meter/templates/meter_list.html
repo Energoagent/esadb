@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead>
+			<tr>
+				<th>[x]</th>
+				<th>ИИК</th>
+				<th>МОДЕЛЬ</th>
+				<th>СЕРИЙНЫЙ НОМЕР</th>
+				<th>СПРАВОЧНИК</th>
+				<th>КЛ ТОЧНОСТИ</th>
+				<th>ДАТА ВЫПУСКА</th>
+				<th>ДАТА ПОВЕРКИ</th>
+				<th>ИНФОРМАЦИЯ</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for meter in meter_list%}
+				<tr>
+					<td><input type="radio" name="meterid" value="{{meter.id}}"></input></td>
+					<td>{{ meter.mic }}</td>
+					<td>{{ meter.model }}</td>
+					<td>{{ meter.sn }}</td>
+					<td>{{ meter.mtrdir }}</td>
+					<td>{{ meter.classae }} / {{ meter.classre }}</td>
+					<td>{{ meter.fbdate }}</td>
+					<td>{{ meter.cldate }}</td>
+					<td>{{ meter.info }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

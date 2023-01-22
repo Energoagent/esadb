@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<table>
+		<tr><th><input type="hidden" name="ttneid" value="{{ ttnexample.id}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ dsownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ ttnexample.id}}"></input></td> </tr>
+		<tr><th>ИИК:</th> <td>{{ ttnexample.mic }}</td> </tr>
+		<tr><th>Устройство:</th> <td>{{ ttnexample.ttntype }}</td> </tr>
+		<tr><th>Фаза:</th> <td>{{ ttnexample.ph }}</td> </tr>
+		<tr><th>Б/П:</th> <td>{{ ttnexample.bl }}</td> </tr>
+		<tr><th>Тип устройства:</th> <td>{{ ttnexample.ttndir.ttntype }}</td> </tr>
+		<tr><th>Модель:</th> <td>{{ ttnexample.ttnmodel }}</td> </tr>
+		<tr><th>Справочник:</th> <td>{{ ttnexample.ttndir }}</td> </tr>
+		<tr><th>Завод-изготовитель:</th> <td>{{ ttnexample.ttndir.fabric }}</td> </tr>
+		<tr><th>Серийный номер:</th> <td>{{ ttnexample.sn}}</td> </tr>
+		<tr><th>Дата выпуска:</th> <td>{{ ttnexample.fbdate }}</td> </tr>
+		<tr><th>Дата поверки:</th> <td>{{ ttnexample.cldate }}</td> </tr>
+		<tr><th>Первичная обмотка:</th> <td>{{ ttnexample.primarycoil }}</td> </tr>
+		<tr><th>Вторичная обмотка:</th> <td>{{ ttnexample.secondarycoil }}</td> </tr>
+		<tr><th>Класс точности:</th> <td>{{ ttnexample.pclass }}</td> </tr>
+		<tr><th>Информация:</th> <td>{{ ttnexample.info }}</td> </tr>
+		<tr><th>Примечание:</th> <td>{{ ttnexample.note }}</td> </tr>
+	</table>
+{% endblock %}
+
+

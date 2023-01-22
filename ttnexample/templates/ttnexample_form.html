@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td><input type="hidden" name="ttndirid" value="{{ttndir.pk}}"></input></td></tr>
+		<tr><td><input type="hidden" name="ttneid" value="{{ttneid}}"></input></td></tr>
+		<tr><th>СПРАВОЧНИК</th></tr>
+		<tr><th>Тип устройства:</th><td>{{ttndir.ttntype}}</td></tr>
+		<tr><th>Модель:</th><td>{{ttndir.model}}</td></tr>
+		<tr><th>Номер ГРСИ:</th><td>{{ttndir.regnumber}}</td></tr>
+		<tr><th>Первичная обмотка:</th> <td>{{ ttndir.primarycoil }}</td> </tr>
+		<tr><th>Вторичная обмотка:</th> <td>{{ ttndir.secondarycoil }}</td> </tr>
+		<tr><th>Класс точности:</th> <td>{{ ttndir.pclass }}</td> </tr>
+		{{ form.as_table }}
+	</table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td><input type="hidden" name="cddirid" value="{{cddir.id}}"></input></td></tr>
+		<tr><td><input type="hidden" name="cdid" value="{{cdid}}"></input></td></tr>
+		<tr><th>Тип устройства:</th><td>{{cddir.cddirtype}}</td></tr>
+		<tr><th>Модель:</th><td>{{cddir.cddirmodel}}</td></tr>
+		{{ form.as_table }}
+	</table>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td>Тип устройства:</td> <td>{{ cddirectory.cdtype}}</td></tr>
+		<tr><td>Модель устройства:</td> <td>{{ cddirectory.model }}</td></tr>
+		<tr><td>Завод-изготовитель:</td> <td>{{ cddirectory.fabric }}</td></tr>
+		<tr><td>Информация:</td> <td>{{ cddirectory.info }}</td></tr>
+		<tr><td>Примечание:</td> <td>{{ cddirectory.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

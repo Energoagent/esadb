@@ -1,0 +1,27 @@
+		body {
+			font: 12px Arial;
+			background-color: #f8f8f8;
+			border-top: 5px solid #7e7e7e;
+			margin: 0;
+		}
+		
+		#wrapper {max-width: none;margin: auto;}
+		
+		header {font: 18px Arial;padding: 10px;}
+		
+		#heading {
+			margin: 10px 0;
+			padding-left: 10px;
+		}
+		
+		aside {float: left;	width: 250px;}
+	
+/*		section {
+			margin-left: 280px;
+			padding-bottom: 50px;
+			padding: 5px; 
+			max-height: 400px; 
+			max-width: 70%; 
+			overflow: auto;
+		}
+*/

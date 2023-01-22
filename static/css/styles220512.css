@@ -1,0 +1,41 @@
+		body {
+			font: 12px Arial;
+			margin: 0;
+		}
+		
+		form[name="account"] {
+			font-family: Arial;
+			font-size: 12px;
+			float: right;
+		}
+		nav a {text-decoration: none;}
+
+		nav ul {margin: 10;	padding: 10; list-style-type: none;}
+
+		nav li {
+			font: 12px Arial;
+			font-weight: bold;
+		}
+		
+		.top-menu li {
+			display: inline-block;
+			padding: 10px 10px;
+			margin: 0;
+		}
+
+		.aside-menu li {
+			border-top: 1px solid #e7e7e7;
+			font-weight: bold;
+		} 
+
+		#wrapper {max-width: none;margin: auto;}
+		
+		header {font: 18px Arial;padding: 20px;}
+
+		aside {
+			float: left;	
+			width: 20%;
+		}
+			
+
+

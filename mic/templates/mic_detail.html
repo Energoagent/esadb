@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<table>
+		<tr><th><input type="hidden" name="micid" value="{{ mic.id}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ dsownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ mic.id}}"></input></td> </tr>
+		<tr><th>Объект:</th> <td>{{ mic.einst }}</td> </tr>
+		<tr><th>Наименование:</th> <td>{{ mic.name }}</td> </tr>
+		<tr><th>Код АТС:</th> <td>{{ mic.code }}</td> </tr>
+		<tr><th>Номер на схеме:</th> <td>{{ mic.schnum}}</td> </tr>
+		<tr><th>Общая информация:</th> <td>{{ mic.info }}</td> </tr>
+		<tr><th>Примечание:</th> <td>{{ mic.note }}</td> </tr>
+	</table>
+{% endblock %}
+
+
