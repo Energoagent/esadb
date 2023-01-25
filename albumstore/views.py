@@ -175,13 +175,16 @@ def albumviewimages(request):
     albumid = request.GET.get('albumid')
     if albumid != None:
         album = AlbumStore.objects.get(id = albumid)
-        try: filelist = sorted(os.listdir(album.get_path()))
-        except: filelist =['empty']
+        try: 
+            filelist = sorted(os.listdir(album.get_path()))
+            if 'tumbnails' in filelist:
+                filelist.remove('tumbnails')
+        except: filelist =[]
         context = {'status':'', 'album': album,
             'contextmenu':{'Вернуться': 'formmethod=GET formaction=../'},
             'subtitle':'Медиа: альбомы изображений: просмотр'}
         context['filelist'] = filelist
-        context['albumpath'] = ALBUM_DIR
+#        context['albumpath'] = ALBUM_DIR
         request.session['albumid'] = albumid
         request.session.modified = True
         return render(request, 'album_viewimages.html', context = context)
