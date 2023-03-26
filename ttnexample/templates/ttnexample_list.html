@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead>
+			<tr>
+				<th>[x]</th>
+				<th>ИИК</th>
+				<th>УСТРОЙСТВО</th>
+				<th>ФАЗА</th>
+				<th>МОДЕЛЬ</th>
+				<th>СЕРИЙНЫЙ НОМЕР</th>
+				<th>СПРАВОЧНИК</th>
+				<th>КТТ</th>
+				<th>КЛ Т</th>
+				<th>ДАТА ВЫПУСКА</th>
+				<th>ДАТА ПОВЕРКИ</th>
+				<th>ИНФОРМАЦИЯ</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for ttne in ttnexample_list%}
+				<tr>
+					<td><input type="radio" name="ttneid" value="{{ttne.pk}}"></input></td>
+					<td> {{ ttne.mic }}</td>
+					<td> {{ ttne.ttntype }}</td>
+					<td> {{ ttne.ph }}</td>
+					<td> {{ ttne.ttnmodel }}</td>
+					<td> {{ ttne.sn }}</td>
+					<td> {{ ttne.ttndir }} </td>
+					<td> {{ ttne.primarycoil }} / {{ ttne.secondarycoil }} </td>
+					<td> {{ ttne.pclass }} </td>
+					<td> {{ ttne.fbdate }} </td>
+					<td> {{ ttne.cldate }} </td>
+					<td> {{ ttne.info }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

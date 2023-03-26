@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<input type="hidden" name ="orgid" value ="{{ organization.pk }}"></input>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ organization.pk }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="cntownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="cntownerid" value="{{ organization.pk }}"></input></td> </tr>
+	<table>
+		<tr><td>Название:</td> <td>{{ organization.name }}</td></tr>
+		<tr><td>ИНН:</td> <td>{{ organization.inn }}</td></tr>
+		<tr><td>Реквизиты:</td> <td>{{ organization.req }}</td></tr>
+		<tr><td>Адрес:</td> <td>{{ organization.addr }}</td></tr>
+		<tr><td>Контакты:</td> <td>{{ organization.contactinfo }}</td></tr>
+		<tr><td>Информация:</td> <td>{{ organization.info }}</td></tr>
+		<tr><td>Примечание:</td> <td>{{ organization.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

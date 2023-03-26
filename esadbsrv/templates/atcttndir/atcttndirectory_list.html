@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead>
+			<tr>
+				<th>[x]</th>
+				<th>ТИП УСТР-ВА</th>
+				<th>МОДЕЛЬ</th>
+				<th>ИЗГОТОВИТЕЛЬ</th>
+				<th>ГРСИ</th>
+				<th>МОДИФИКАЦИЯ</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for ttndir in atcttndirectory_list%}
+				<tr>
+					<td><input type="radio" name="ttndirid" value="{{ttndir.id}}"></input></td>
+					<td>{{ ttndir.ttntype }}</td>
+					<td>{{ ttndir.model }}</td>
+					<td>{{ ttndir.fabric }}</td>
+					<td>{{ ttndir.regnumber }}</td>
+					<td>{{ ttndir.modification }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

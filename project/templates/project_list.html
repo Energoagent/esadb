@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead><tr><th>[x]</th><th>НАЗВАНИЕ</th><th>ИНН</th><th>АДРЕС</th><th>ИНФОРМАЦИЯ</th></tr></thead>
+		<tbody>
+			{% for project in project_list%}
+				<tr>
+					<td><input type="radio" name="projectid" value="{{project.pk}}"></input></td>
+					<td>{{ project.name }}</td>
+					<td>{{ project.inn }}</td>
+					<td>{{ project.addr }}</td>
+					<td>{{ project.info }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

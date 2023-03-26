@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td><input type="hidden" name="micid" value="{{micid}}"></input></td></tr>
+		<tr><th>Электроустановка:</th><td>{{einst}}</td></tr>
+		{{ form.as_table }}
+	</table>
+{% endblock %}

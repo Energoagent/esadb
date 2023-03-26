@@ -1,0 +1,7 @@
+export/
+import/
+static/
+media/
+**/__pycache__/
+*.bat
+.git

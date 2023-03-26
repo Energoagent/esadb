@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <table>
+		<tr><td><input type="hidden" name="orgid" value="{{owner.id}}"></input></td></tr>
+		<tr><td><input type="hidden" name="einstid" value="{{einstid}}"></input></td></tr>
+		<tr><th>Собственник объекта:</th><td>{{owner.name}}</td></tr>
+		<tr><th>ИНН:</th><td>{{owner.inn}}</td></tr>
+		<tr><th>Адрес:</th><td>{{owner.addr}}</td></tr>
+		{{ form.as_table }}
+    </table>
+{% endblock %}

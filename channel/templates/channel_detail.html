@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<table>
+		<tr><th><input type="hidden" name="channelid" value="{{ channel.pk}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ channel.pk}}"></input></td> </tr>
+		<tr><th>Наименование:</th><td> {{ channel.name}}</td></tr>
+		<tr><th>Тип:</th><td> {{ channel.chtype }}</td></tr>
+		<tr><th>Идентификационная информация:</th><td> {{ channel.info }}</td></tr>
+		<tr><th>Примечание:</th><td> {{ channel.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<table>
+		<tr><th><input type="hidden" name="contactid" value="{{ contact.pk}}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerclass" value="{{ ownerclass }}"></input></td> </tr>
+		<tr><th><input type="hidden" name="dsownerid" value="{{ contact.pk}}"></input></td> </tr>
+		<tr><th>Фамилия Имя Отчество:</th><td> {{ contact.name}}</td></tr>
+		<tr><th>Контактная информация:</th><td> {{ contact.contactinfo }}</td></tr>
+		<tr><th>Общая информация:</th><td> {{ contact.info }}</td></tr>
+		<tr><th>Примечание:</th><td> {{ contact.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<tr><td>Уникальный идентификатор:</td><td>{{ ttndir.code }}</td></tr>
+		<tr><td>Тип устройства:</td><td>{{ ttndir.ttntype }}</td></tr>
+		<tr><td>Модель:</td><td> {{ ttndir.model }}</td></tr>
+		<tr><td>Номер в ГРСИ:</td><td> {{ ttndir.regnumber }}</td></tr>
+		<tr><td>Модификация:</td><td> {{ ttndir.modification }}</td></tr>
+		<tr><td>Класс точности:</td><td> {{ ttndir.pclass }}</td></tr>
+		<tr><td>Первичная обмотка:</td><td> {{ ttndir.primarycoil }}</td></tr>
+		<tr><td>Вторичная обмотка:</td> <td>{{ ttndir.secondarycoil }}</td></tr>
+		<tr><td>Межповерочный интервал:</td> <td>{{ ttndir.colibrationint }}</td></tr>
+		<tr><td>Производитель:</td><td> {{ ttndir.fabric }}</td></tr>
+		<tr><td>Серийный номер:</td><td> {{ ttndir.sn }}</td></tr>
+		<tr><td>Примечание:</td><td> {{ ttndir.note }}</td></tr>
+	</table>
+{% endblock %}   .
+
+

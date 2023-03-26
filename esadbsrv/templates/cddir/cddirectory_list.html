@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<table>
+		<thead><tr><th>[x]</th><th>МОДЕЛЬ</th><th>ТИП УСТРОЙСТВА</th><th>ИЗГОТОВИТЕЛЬ</th></tr></thead>
+		<tbody>
+			{% for cdd1 in cddirectory_list%}
+				<tr>
+					<td><input type="radio" name="cddirid" value="{{cdd1.pk}}"></input></td>
+					<td>{{ cdd1.rmodel }}</td>
+					<td>{{ cdd1.cdtype }}</td>
+					<td>{{ cdd1.fabric }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

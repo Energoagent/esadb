@@ -1,0 +1,6 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<p> Вы уверены, что хотите удалить запись: {{ commdevice }}?</p>
+	<input type="hidden" name="cdid" value="{{commdevice.pk}}"></input>
+{% endblock %}
