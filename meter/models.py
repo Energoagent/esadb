@@ -4,6 +4,7 @@ from mic.models import MIC
 from esadbsrv.models import ATCMeterDir, balance
 from docstore.models import DocStore
 
+
 class Meter(models.Model):
     class Meta:
         verbose_name = 'Счетчик, измерительный прибор'
@@ -32,4 +33,24 @@ class Meter(models.Model):
     def get_absolute_url(self):
         return f'/meter/{self.pk}/'
         
+    def fldlist():
+        dict1 = ['ИИК', 'МОДЕЛЬ', 'БП', 'СЕР_НОМЕР', 'СПРАВОЧНИК', 'ДАТА_ВЫП', 'ДАТА_ПОВ', 'КЛ_Т', 'КАНАЛЫ', 'ИНФОРМАЦИЯ', 'ПРИМЕЧАНИЕ', 'ДОКУМЕНТЫ']
+        return dict1
 
+    def valuelist(self):
+        if self.mtrdir == None: str2 = '-'
+        else: str2 = self.mtrdir.regnumber
+        if self.classae == None: str1 = '-'
+        else: str1 = self.classae
+        if self.classre == None: str1 = str1 + '/-'
+        else: str1 = str1 + '/' + self.classae
+        if self.channelae == None: str3 = '-'
+        else: str3 = self.channelae
+        if self.channelre == None: str3 = str3 + '/-'
+        else: str3 = str3 + '/' + self.channelre
+        lst1 = [self.id, self.mtrmodel, self.bl, self.sn, str2, self.fbdate, self.cldate, str1, str3, self.info, self.note]
+        doclist = []
+        for doc in self.docs.all():
+            doclist.append(doc.__str__() + '; \n')
+        lst1.append(str(doclist))
+        return lst1

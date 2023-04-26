@@ -36,7 +36,10 @@ class DocStore(models.Model):
 
     def __str__(self):
         return str(self.doctype) + ':' + str(self.name) + ':' + str(self.number)
-   
+        
+    def as_string(self):
+       return str(self.doctype) + ':' + str(self.name) + ':' + str(self.number)
+  
     def get_absolute_url(self):
         return f'docstore/{self.pk}'
         

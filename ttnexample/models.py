@@ -61,8 +61,8 @@ class TTNExample(models.Model):
         return f'/ttnexample/{self.pk}/'
 
     def fldlist():
-        lst1 = ['ИИК', 'УСТРОЙСТВО', 'ФАЗА', 'БП', 'СЕР НОМЕР', 'МОДЕЛЬ', 'СПРАВОЧНИК', 'ДАТА ВЫП', 'ДАТА ПОВ', 
-            'КТ', 'КЛ Т', 'ИНФОРМАЦИЯ', 'ПРИМЕЧАНИЕ']
+        lst1 = ['ИИК', 'УСТРОЙСТВО', 'ФАЗА', 'БП', 'СЕР НОМЕР', 'МОДЕЛЬ', 'СПРАВОЧНИК', 'ДАТА_ВЫП', 'ДАТА_ПОВ', 
+            'КТ', 'КЛ_Т', 'ИНФОРМАЦИЯ', 'ПРИМЕЧАНИЕ', 'ДОКУМЕНТЫ']
         return lst1
 
     def valuelist(self):
@@ -72,7 +72,11 @@ class TTNExample(models.Model):
         else: kt = self.primarycoil
         if self.secondarycoil == None: kt = kt + '/-'
         else: kt = kt + '/' + self.secondarycoil
-        lst1 = [self.mic.name, self.ttntype, self.ph, self.bl, self.sn, self.ttnmodel, rn, 
+        lst1 = [self.id, self.ttntype, self.ph, self.bl, self.sn, self.ttnmodel, rn, 
             self.fbdate, self.cldate,kt, self.pclass, self.note ,self.info, self.note]
+        doclist = []
+        for doc in self.docs.all():
+            doclist.append(doc.__str__() + '; \n')
+        lst1.append(str(doclist))
         return lst1
 

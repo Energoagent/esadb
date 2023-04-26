@@ -28,10 +28,14 @@ class MIC(models.Model):
         return f'/ttnexample/{self.pk}/'
         
     def fldlist():
-        lst1 = ['НАИМЕНОВАНИЕ', 'КОД АТС', 'НОМЕР НА СХЕМЕ', 'ИНФОРМАЦИЯ', 'ПРИМЕЧАНИЕ']
+        lst1 = ['НАИМЕНОВАНИЕ', 'КОД АТС', 'НОМЕР НА СХЕМЕ', 'ИНФОРМАЦИЯ', 'ПРИМЕЧАНИЕ', 'ДОКУМЕНТЫ']
         return lst1
 
     def valuelist(self):
         lst1 = [self.name, self.code, self.schnum, self.info, self.note]
+        doclist = []
+        for doc in self.docs.all():
+            doclist.append(doc.__str__())
+        lst1.append('; \n'.join(doclist))
         return lst1
 
