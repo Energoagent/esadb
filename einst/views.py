@@ -5,7 +5,6 @@ from django.views.decorators.http import require_http_methods
 
 from pathlib import Path
 import os
-import re
 from datetime import date
 from datetime import datetime
 
@@ -147,64 +146,7 @@ def einstdeleteview(request):
         EInst.objects.filter(id = einstid).delete()
     return redirect('../')
 
-def fnnormal(s1):
-    s2 = []
-    for c1 in s1:
-        if re.match('[a-zA-Zа-яА-Я0-9]', c1):
-            s2.append(c1)
-        else:
-            s2.append('_')
-    return ''.join(s2)        
-    
 
-@require_http_methods(['GET'])
-def einstreportview(request):
-    '''
-    формирование отчета в файл Excel
-    '''    
-    import openpyxl
-    from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
-    from openpyxl.utils.cell import get_column_letter
-    from utils.reports import ExcelReport
-# содание книги        
-    projectname = request.session.get('projectname')
-    einstid = request.session.get('einstid')
-    if einstid != None:
-        einst = EInst.objects.get(id = einstid)
-# создание отчета
-        wb = ExcelReport()
-        ws = wb.active
-        ws.title = 'ОБЛОЖКА'
-# титульный лист
-        ws = wb.worksheet_as_page(mdlexample = einst, name = 'ТИТУЛ', note = 'примечание')
-# лист - перечень ИИК        
-        ws = wb.worksheet_as_list(mdlset = einst.mic_set.all(), name = 'ИИК', note = 'примечание')
-# лист - измерительные трансформаторы            
-        ws = wb.worksheet_as_2list(mdlset = einst.mic_set.all(), relname = 'ttnexample', name = 'ТТН', note = 'примечание')
-# лист - счетчики                
-        ws = wb.worksheet_as_2list(mdlset = einst.mic_set.all(), relname = 'meter', name = 'СЧЕТЧИКИ', note = 'примечание')
-# лист - каналы связи               
-        ws = wb.worksheet_as_list(mdlset = einst.channels.all(), name = 'СВЯЗЬ', note = 'примечание')
-# лист - документы                
-#        ws = wb.worksheet_as_list(mdlset = einst.docs.all(), name = 'ДОКУМЕНТЫ', note = 'примечание')
-# лист - контакты                
-#        ws = wb.worksheet_as_list(mdlset = einst.contact.all(), name = 'КОНТАКТЫ', note = 'примечание')
-# формирование полного имени файла отчета                
-        basedir = Path(__file__).resolve().parent.parent
-        wbname = fnnormal(einst.name +'_' + date.today().strftime('%m-%d-%y'))
-        try: 
-# запись файла и внесение в БД        
-            wb.save(os.path.join(settings.MEDIA_ROOT, 'docstore', wbname + '.xlsx'))
-            report = DocStore()
-            report.doctype = 'отчет'
-            report.name = 'Сводный отчет об объекте: ' +  einst.name
-            report.number = '_'
-            report.date = date.today()
-            report.docfile = os.path.join('docstore', wbname + '.xlsx')
-            report.save()
-# временно для отладки            einst.docs.add(report)
-        except: pass
-    return redirect('../')
 
 class CDListView(CommDeviceListView):
     is_filtered = False

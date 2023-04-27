@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from einst import views
+from einst import views, reports
 from org.views import OrganizationChoiceView
 from project.views import ProjectListView
 
@@ -16,7 +16,7 @@ urlpatterns = [
     path('detail/albums/', include('albumstore.urls')),
     path('detail/docs/', include('docstore.urls')),
     path('detail/contacts/', include('contact.urls')),
-    path('detail/report/', views.einstreportview, name ='detail_report'),
+    path('detail/report/', reports.einst_report, name ='detail_report'),
 
     path('detail/owner/', OrganizationChoiceView.as_view(), name ='owner'),
     path('detail/owner/select/', views.einstownerselect, name ='owner_select'),

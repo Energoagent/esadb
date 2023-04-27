@@ -131,6 +131,7 @@ class ExcelReport(openpyxl.Workbook):
             return ws
 # формируем заголовок и список полей связанной модели
         relset = eval('mdlset[0].' + relname + '_set.all()')
+        fieldnamelist = []
         if len(relset) == 0:
             ws.append(['rel model no data'])
         else:
@@ -138,7 +139,6 @@ class ExcelReport(openpyxl.Workbook):
                 ws.append(['the report does not match the rel model type'])
             else:
                 fieldlist = relset[0]._meta.get_fields()
-                fieldnamelist = []
                 header = []
                 for fld in fieldlist:
                     if not (isinstance(fld, models.fields.related.RelatedField) or isinstance(fld, models.fields.reverse_related.ManyToOneRel)):
