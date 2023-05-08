@@ -7,7 +7,7 @@ from project.views import ProjectListView
 appname = 'einst'
 
 urlpatterns = [
-    path('', views.EInstListView.as_view()),
+    path('', views.EInstListView.as_view(), name = 'einst'),
     path('delete/', views.einstdeleteview, name ='delete'),
     path('detail/', views.einstdetailview, name ='detail'),
     path('create/', views.einstcreateview, name ='create'),

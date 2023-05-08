@@ -4,6 +4,8 @@ from django.db import models
 
 ALBUM_DIR = 'albumstore'
 
+
+
 def albumpath():
     ap = os.path.join(settings.MEDIA_ROOT, ALBUM_DIR)
     return ap
@@ -11,6 +13,7 @@ def albumpath():
 class AlbumStore(models.Model):
     class Meta:
         verbose_name = 'Альбом изображений'
+    local = models.BooleanField(default = True)
     name = models.CharField(max_length = 256, help_text = '', verbose_name = 'Наименование', blank = True, null = True)
     folder = models.FilePathField(path = albumpath, verbose_name = 'Папка', recursive=True, allow_files=False, allow_folders=True, max_length=100)
     info = models.CharField(max_length = 256, help_text = '', verbose_name = 'Информация', blank = True, null = True)
@@ -27,10 +30,11 @@ class AlbumStore(models.Model):
         super().delete()
 
     def get_url(self):
-        u1 = settings.MEDIA_URL +'/' + ALBUM_DIR + '/' + self.folder
-        return u1
+        if local:
+            return settings.MEDIA_URL +'/' + ALBUM_DIR + '/' + self.folder
+        else:
+            return ASCLOUD_URL +'/' + ALBUM_DIR + '/' + self.folder
 
     def get_path(self):
-        u1 = os.path.join(settings.MEDIA_ROOT, ALBUM_DIR, self.folder)
-        return u1
+        return os.path.join(settings.MEDIA_ROOT, ALBUM_DIR, self.folder)
 

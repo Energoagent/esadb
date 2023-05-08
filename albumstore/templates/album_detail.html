@@ -1,12 +1,17 @@
 {% extends "base_generic.html" %}
 {% block content %}
 	<tr><td>{{album.name}}</td></tr>
-	<tr><td>{%for fl in filelist%}
-		<input type="checkbox" name="imgid" value="{{fl}}"></input>
-		<a href="{{album.get_url}}\{{fl}}">
-			<img src="{{album.get_url}}\tumbnails\{{fl}}">
-		</a>
-	{%endfor%}</td></tr>
+	<tr><td>
+		<a href = "{{remotelink}}">link to mail.ru cloud</a>
+	</td></tr>
+	<tr><td>
+		{%for fl in filelist%}
+			<input type="checkbox" name="imgid" value="{{fl}}"></input>
+			<a href="{{album.get_url}}\{{fl}}">
+				<img src="{{album.get_url}}\tumbnails\{{fl}}">
+			</a>
+		{%endfor%}
+	</td></tr>
 {% endblock %}
 
 

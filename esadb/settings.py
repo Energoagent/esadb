@@ -13,10 +13,12 @@ DJANGO_CONFIG = get_env_value('django_config')
 DJANGO_DEBUG = get_env_value('django_debug')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SECRET_KEY = 'django-insecure-5b=(k-uws^(_7%c23e4pdx225*y$2*^i4q^qpo45pi^cmw+%1('
 
 DEBUG = DJANGO_DEBUG == 'true'
+
 
 ALLOWED_HOSTS = [
     'askue.energoagent.com',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'bootsrap4',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +123,7 @@ if DJANGO_CONFIG == 'local':
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-    MEDIA_URL = '/'
+    MEDIA_URL = '/media/'
 else:
     DATABASES = {
         'default': {
