@@ -71,7 +71,7 @@ def einst_report(request):
             report.date = date.today()
             report.docfile = os.path.join('docstore', wbname + '.xlsx')
             report.save()
-# временно для отладки            einst.docs.add(report)
+# для отладки            einst.docs.add(report)
         except: pass
     return redirect('../')
 
