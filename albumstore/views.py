@@ -39,7 +39,7 @@ class AlbumListView(CompleteListView):
         'Добавить альбом': 'formmethod=GET formaction=create/',
         'Удалить альбом': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
-    filterkeylist = {'Сброс':'', 'Наименование':'name', 'Информация':'info'}
+    filterkeylist = {'Наименование':'name', 'Информация':'info'}
     is_filtered = True
     def get_queryset(self):
         ownerid = self.request.GET.get('ownerid')

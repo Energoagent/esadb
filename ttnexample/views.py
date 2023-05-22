@@ -26,7 +26,7 @@ class TTNExampleListView(CompleteListView):
         'Удалить': 'formmethod=GET formaction=delete/',
         'Копировать': 'formmethod=GET formaction=copy/',
         'Вернуться': 'formmethod=GET formaction=../'}
-    filterkeylist = {'Сброс':'', 'Серийный номер':'sn', 'Модель':'ttnmodel', 'Изготовитель':'fabric', 'номер в ГРСИ':''}
+    filterkeylist = {'Серийный номер':'sn', 'Модель':'ttnmodel', 'Изготовитель':'fabric', 'номер в ГРСИ':''}
     is_filtered = True
     def get_queryset(self):
         micid = self.request.GET.get('micid')

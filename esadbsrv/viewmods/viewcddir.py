@@ -18,7 +18,7 @@ class CDDirectoryListView(CompleteListView):
         'Изменить':'formmethod=get formaction=update/',
         'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
-    filterkeylist = {'':'', 'Тип':'cdtype', 'Модель':'model', 'Изготовитель':'fabric'}
+    filterkeylist = {'Тип':'cdtype', 'Модель':'model', 'Изготовитель':'fabric'}
     is_filtered = True
 
 @require_http_methods(['GET'])

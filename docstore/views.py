@@ -26,7 +26,7 @@ class DocStoreListView(CompleteListView):
     paginate_by = 10
     ordering = 'doctype'
     subtitle = 'Медиа: документы'
-    filterkeylist = {'Сброс':'', 'Тип документа':'doctype', 'Наименование':'name', 'Номер':'number'}
+    filterkeylist = {'Тип документа':'doctype', 'Наименование':'name', 'Номер':'number'}
     contextmenu = {'Добавить': 'formmethod=GET formaction=create/',
         'Просмотреть': 'formmethod=GET formaction=detail/',
         'Изменить': 'formmethod=GET formaction=update/',

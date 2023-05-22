@@ -55,7 +55,7 @@ class ATCMeterDirListView(CompleteListView):
     ordering = 'model'
     subtitle = 'Оборудование: справочник счетчиков АТС'
     contextmenu = {'Просмотреть': 'formmethod=GET formaction=detail/'}
-    filterkeylist = {'Сброс':'', 'Модель':'model', 'Изготовитель':'fabricator','номер в ГРСИ':'regnumber'}
+    filterkeylist = {'Модель':'model', 'Изготовитель':'fabricator','номер в ГРСИ':'regnumber'}
   
 def atcmeterdirdetailview(request):
     if request.method == 'GET':

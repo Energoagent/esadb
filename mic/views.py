@@ -44,7 +44,7 @@ class MICListView(CompleteListView):
         'Просмотреть/Изменить': 'formmethod=GET formaction=detail/',
         'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
-    filterkeylist = {'Сброс':'', 'Наименование':'name', 'Код АТС':'code'}
+    filterkeylist = {'Наименование':'name', 'Код АТС':'code'}
     is_filtered = True
     def get_queryset(self):
         einstid = self.request.session.get('einstid')

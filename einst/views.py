@@ -27,7 +27,7 @@ class EInstListView(CompleteListView):
     paginate_by = 10
     ordering = 'name'
     subtitle = 'Объекты'
-    filterkeylist = {'':'', 'Наименование':'name', 'Адрес':'adress'}
+    filterkeylist = {'Наименование':'name', 'Адрес':'adress'}
     is_filtered = True
     contextmenu = {'Добавить': 'formmethod=GET formaction=create/', 
         'Просмотреть': 'formmethod=GET formaction=detail/',

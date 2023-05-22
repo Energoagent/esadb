@@ -13,7 +13,7 @@ class ChannelListView(CompleteListView):
     paginate_by = 10
     ordering = 'name'
     subtitle = 'Каналы связи'
-    filterkeylist = {'':'', 'Наименование':'name', 'Тип':'chtype', 'Идентификатор':'info'}
+    filterkeylist = {'Наименование':'name', 'Тип':'chtype', 'Идентификатор':'info'}
     is_filtered = True
     contextmenu = {'Добавить': 'formmethod=GET formaction=create/', 
         'Просмотреть': 'formmethod=GET formaction=detail/',

@@ -50,7 +50,7 @@ class ATCTTNDirectoryListView(CompleteListView):
     subtitle = 'Оборудование: справочник измерительных трансформаторов АТС'
     contextmenu = {'Просмотреть': 'formmethod=GET formaction=detail/',
         'Вернуться':'formmethod=GET formaction=../'}
-    filterkeylist = {'Сброс':'', 'Модель':'model', 'Изготовитель':'fabric', 'номер в ГРСИ':'regnumber'}
+    filterkeylist = {'Модель':'model', 'Изготовитель':'fabric', 'номер в ГРСИ':'regnumber'}
     is_filtered = True
 
 def atcttndirectorydetailview(request):

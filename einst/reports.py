@@ -19,6 +19,7 @@ from utils.files import filename_normal
 
 from mic.models import MIC
 from einst.models import EInst
+from docstore.models import DocStore
 
 @require_http_methods(['GET'])
 def einst_report(request):
@@ -55,9 +56,9 @@ def einst_report(request):
 # лист - каналы связи               
         ws = wb.worksheet_as_list(mdlset = einst.channels.all(), name = 'СВЯЗЬ', note = 'примечание')
 # лист - документы                
-#        ws = wb.worksheet_as_list(mdlset = einst.docs.all(), name = 'ДОКУМЕНТЫ', note = 'примечание')
+        ws = wb.worksheet_as_list(mdlset = einst.docs.all(), name = 'ДОКУМЕНТЫ', note = 'примечание')
 # лист - контакты                
-#        ws = wb.worksheet_as_list(mdlset = einst.contact.all(), name = 'КОНТАКТЫ', note = 'примечание')
+        ws = wb.worksheet_as_list(mdlset = einst.contacts.all(), name = 'КОНТАКТЫ', note = 'примечание')
 # формирование полного имени файла отчета                
         basedir = Path(__file__).resolve().parent.parent
         wbname = filename_normal(einst.name +'_' + date.today().strftime('%m-%d-%y'))
@@ -71,7 +72,7 @@ def einst_report(request):
             report.date = date.today()
             report.docfile = os.path.join('docstore', wbname + '.xlsx')
             report.save()
-# для отладки            einst.docs.add(report)
-        except: pass
+            einst.docs.add(report)
+        except Exception as e: print('EXCEPTION:', e)
     return redirect('../')
 

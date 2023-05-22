@@ -22,7 +22,7 @@ class CommDeviceListView(CompleteListView):
     ordering = 'cddir'
     subtitle = 'Оборудование: устройства связи'
     is_filtered = True
-    filterkeylist = {'':'', 'Тип/Модель':'cddir'}
+    filterkeylist = {'Тип/Модель':'cddir'}
     contextmenu = {'Просмотреть/Изменить': 'formmethod=GET formaction=detail/',
         'Добавить': 'formmethod=GET formaction=create/',
         'Удалить': 'formmethod=GET formaction=delete/',

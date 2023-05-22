@@ -85,7 +85,10 @@ class ExcelReport(openpyxl.Workbook):
                     fieldnamelist = []
                     header = []
                     for fld in fieldlist:
-                        if not (isinstance(fld, models.fields.related.RelatedField) or isinstance(fld, models.fields.reverse_related.ManyToOneRel)):
+                        if not (isinstance(fld, models.fields.related.RelatedField) 
+                            or isinstance(fld, models.fields.reverse_related.ManyToOneRel)
+                            or isinstance(fld, models.fields.reverse_related.ManyToManyRel)
+                            or isinstance(fld, models.FileField)):
                             fieldnamelist.append(fld.name)
                             header.append(fld.verbose_name.upper())
                     ws.append(header)        
@@ -141,7 +144,10 @@ class ExcelReport(openpyxl.Workbook):
                 fieldlist = relset[0]._meta.get_fields()
                 header = []
                 for fld in fieldlist:
-                    if not (isinstance(fld, models.fields.related.RelatedField) or isinstance(fld, models.fields.reverse_related.ManyToOneRel)):
+                    if not (isinstance(fld, models.fields.related.RelatedField) 
+                        or isinstance(fld, models.fields.reverse_related.ManyToOneRel)
+                        or isinstance(fld, models.fields.reverse_related.ManyToManyRel)
+                        or isinstance(fld, models.FileField)):
                         fieldnamelist.append(fld.name)
                         header.append(fld.verbose_name.upper())
                 ws.append(header)        

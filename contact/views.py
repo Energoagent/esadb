@@ -14,7 +14,7 @@ class ContactListView(CompleteListView):
     paginate_by = 10
     ordering = 'name'
     subtitle = 'Контакты'
-    filterkeylist = {'':'', 'ФИО':'name', 'Контакт инфо':'contactinfo'}
+    filterkeylist = {'ФИО':'name', 'Контакт инфо':'contactinfo'}
     is_filtered = True
     contextmenu = {
         'Добавить': 'formmethod=GET formaction=create/', 
