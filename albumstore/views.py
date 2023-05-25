@@ -20,11 +20,6 @@ from albumstore.models import AlbumStore, albumpath, ALBUM_DIR
 from esadbsrv.viewmods.viewcommon import CompleteListView
 from esadbsrv.models import EInst
 
-# albumstore cloud settings
-ASCLOUD_NAME = 'esadb.energoagent@mail.ru'
-ASCLOUD_PASSWORD = 'pQHdXAx63Xxnat11ug3W'
-ASCLOUD_URL = 'https://cloud.mail.ru/home'
-
 
 class AlbumListView(CompleteListView):
     model = AlbumStore
@@ -33,11 +28,10 @@ class AlbumListView(CompleteListView):
     template_name = 'album_list.html'
     subtitle = 'Медиа: альбомы изображений'
     contextmenu = {
-        'Просмотреть изображения': 'formmethod=GET formaction=viewimages/',
-        'Изменить изображения': 'formmethod=GET formaction=detail/',
-        'Изменить альбом': 'formmethod=GET formaction=update/',
-        'Добавить альбом': 'formmethod=GET formaction=create/',
-        'Удалить альбом': 'formmethod=GET formaction=delete/',
+        'Изображения': 'formmethod=GET formaction=detail/',
+        'Изменить': 'formmethod=GET formaction=update/',
+        'Добавить': 'formmethod=GET formaction=create/',
+        'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
     filterkeylist = {'Наименование':'name', 'Информация':'info'}
     is_filtered = True
@@ -82,20 +76,20 @@ def albumloadimage(request):
     if request.method == 'POST':
         if request.FILES != None:
             album = AlbumStore.objects.get(id = albumid)
-            if album.local:
-                ap = os.path.join(albumpath(), album.folder)
-                for fl in request.FILES.getlist('filelist'):
-                    with open(os.path.join(ap, fl.name), 'wb+') as destination:
-                        for chunk in fl.chunks(): destination.write(chunk)
-                    image = Image.open(os.path.join(ap, fl.name))
-                    MAX_SIZE = (200, 200)
-                    image.thumbnail(MAX_SIZE)
-                    image.save(os.path.join(ap, 'tumbnails', fl.name))
-            else:
-                data = {'webdav_hostname': 'https://webdav.cloud.mail.ru',
-                    'webdav_login': ASCLOUD_NAME,
-                    'webdav_password': ASCLOUD_PASSWORD}
-                try:
+            try:
+                if album.local:
+                    ap = os.path.join(albumpath(), album.folder)
+                    for fl in request.FILES.getlist('filelist'):
+                        with open(os.path.join(ap, fl.name), 'wb+') as destination:
+                            for chunk in fl.chunks(): destination.write(chunk)
+                        image = Image.open(os.path.join(ap, fl.name))
+                        MAX_SIZE = (200, 200)
+                        image.thumbnail(MAX_SIZE)
+                        image.save(os.path.join(ap, 'tumbnails', fl.name))
+                else:
+                    data = {'webdav_hostname': settings.ASCLOUD_URL,
+                        'webdav_login': settings.ASCLOUD_NAME,
+                        'webdav_password': settings.ASCLOUD_PASSWORD}
                     client = Client(data)
                     remotedir = ALBUM_DIR + '/' + album.folder
                     if not client.check(remotedir): 
@@ -107,8 +101,8 @@ def albumloadimage(request):
                         rp = remotedir + '/' + fl.name
                         lp = ap + '/' + fl.name
                         client.upload_sync(remote_path = rp, local_path = lp)                       
-                except BaseException as e: 
-                    print('EXEPTION:', e)
+            except BaseException as e: 
+                print('EXEPTION:', e)
         return redirect('../')
     else:
         context = {'status':'',
@@ -200,36 +194,4 @@ def albumdelete(request):
         album.delete()
     return redirect('../')
     
-@require_http_methods(['GET'])
-def albumviewimages(request):
-    albumid = request.GET.get('albumid')
-    if albumid != None:
-        album = AlbumStore.objects.get(id = albumid)
-        filelist =[]
-        link = None
-        if album.local:
-            try: 
-                filelist = sorted(os.listdir(album.get_path()))
-                if 'tumbnails' in filelist:
-                    filelist.remove('tumbnails')
-            except: pass
-        else:
-            data = {'webdav_hostname': 'https://webdav.cloud.mail.ru',
-                'webdav_login': ASCLOUD_NAME,
-                'webdav_password': ASCLOUD_PASSWORD}
-            try:
-                client = Client(data)
-                remotedir = ALBUM_DIR + '/' + album.folder
-                link = client.publish(remotedir)
-            except BaseException as e: 
-                print('EXEPTION:', e)
-        context = {'status':'', 'album': album,
-            'contextmenu':{'Вернуться': 'formmethod=GET formaction=../'},
-            'subtitle':'Медиа: альбомы изображений: просмотр'}
-        context['filelist'] = filelist
-        context['remotelink'] = link
-        request.session['albumid'] = albumid
-        request.session.modified = True
-        return render(request, 'album_viewimages.html', context = context)
-    return redirect('../')
 

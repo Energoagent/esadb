@@ -17,7 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'django-insecure-5b=(k-uws^(_7%c23e4pdx225*y$2*^i4q^qpo45pi^cmw+%1('
 
-DEBUG = DJANGO_DEBUG == 'true'
+#DEBUG = DJANGO_DEBUG == 'true'
+DEBUG = True
 
 
 ALLOWED_HOSTS = [
@@ -169,4 +170,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
+
+#cloud settings
+ASCLOUD_NAME = 'esadb.energoagent@mail.ru'
+ASCLOUD_PASSWORD = 'pQHdXAx63Xxnat11ug3W'
+ASCLOUD_URL = 'https://cloud.mail.ru/home'
+
+
 

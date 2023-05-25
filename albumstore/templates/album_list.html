@@ -1,14 +1,21 @@
 {% extends "base_generic.html" %}
 {% block content %}
 		<table>
-			<thead><tr><th></th><th>НАИМЕНОВАНИЕ</th><th>ИНФОРМАЦИЯ</th><th>ПАПКА</th></tr></thead>
+			<thead><tr><th></th><th>НАИМЕНОВАНИЕ</th><th>ДАТА</th><th>ИНФОРМАЦИЯ</th><th>ПАПКА</th></tr></thead>
 			<tbody>
 				{% for album in albumstore_list%}
 					<tr>
 						<td><input type="radio" name="albumid" value="{{album.pk}}"></input></td>
 						<td>{{ album.name }}</td>
+						<td>{{ album.date }}</td>
 						<td>{{ album.note }}</td>
-						<td>{{ album.folder }}</td>
+						<td>
+							{% if album.local%}
+								{{ album.folder }}
+							{% else %}
+								<a href = "{{album.get_url}}" target = "blank">link to mail.ru cloud</a>
+							{% endif %}
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
