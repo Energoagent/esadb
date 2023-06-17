@@ -27,8 +27,9 @@ def gdisk_list(request):
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'client_secret_esadb.json', SCOPES)
+            home_dir = os.path.expanduser('~')
+            credential_path = os.path.join(home_dir,'client_secret_esadb.json')
+            flow = InstalledAppFlow.from_client_secrets_file(credential_path, SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
@@ -36,8 +37,7 @@ def gdisk_list(request):
     try:
         service = build('drive', 'v3', credentials=creds)
         # Call the Drive v3 API
-        results = service.files().list(
-            pageSize=10, fields="nextPageToken, files(id, name)").execute()
+        results = service.files().list(pageSize=10, fields="nextPageToken, files(id, name)").execute()
         items = results.get('files', [])
         context['filelist'] = items
     except HttpError as error:
