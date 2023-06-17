@@ -6,7 +6,9 @@
 			<tbody>
 				{% for file in filelist %}
 					<tr>
-						<td>{{file}}</td>
+						{% for key, value in file.items%}
+							<td>{{value}}</td>
+						{%endfor%}
 					</tr>
 				{% endfor%}
 			</tbody>
