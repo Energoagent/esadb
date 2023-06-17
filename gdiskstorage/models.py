@@ -4,17 +4,13 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-ALBUM_DIR = 'albumstore'
-
-
 def albumpath():
     ap = os.path.join(settings.MEDIA_ROOT, ALBUM_DIR)
     return ap
 
 class AlbumStore(models.Model):
     class Meta:
-        verbose_name = 'Альбом изображений'
-    local = models.BooleanField(default = True)
+        verbose_name = 'Папка на Google disk'
     name = models.CharField(max_length = 256, help_text = '', verbose_name = 'Наименование', blank = True, null = True)
     date = models.DateField(help_text = '', verbose_name = 'Дата', default = timezone.now(), blank = True, null = True)
     folder = models.FilePathField(path = albumpath, verbose_name = 'Папка', recursive = True, allow_files = False, allow_folders = True, max_length = 100)

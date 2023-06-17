@@ -91,16 +91,22 @@ def albumloadimage(request):
                         'webdav_login': settings.ASCLOUD_NAME,
                         'webdav_password': settings.ASCLOUD_PASSWORD}
                     client = Client(data)
-                    remotedir = ALBUM_DIR + '/' + album.folder
-                    if not client.check(remotedir): 
-                        client.mkdir(remotedir)
-                    ap = os.path.join(albumpath(), 'temp')
+                    remotedir = os.path.join(ALBUM_DIR, album.folder)
+                    localdir = os.path.join(albumpath(), 'temp')
                     for fl in request.FILES.getlist('filelist'):
-                        with open(os.path.join(ap, fl.name), 'wb+') as destination:
+                        with open(os.path.join(localdir, fl.name), 'wb+') as destination:
                             for chunk in fl.chunks(): destination.write(chunk)
-                        rp = remotedir + '/' + fl.name
-                        lp = ap + '/' + fl.name
-                        client.upload_sync(remote_path = rp, local_path = lp)                       
+#                        client.upload_sync(
+#                            remote_path = os.path.join(remotedir, fl.name), 
+#                            local_path = os.path.join(localdir, fl.name))                       
+                        image = Image.open(os.path.join(localdir, fl.name))
+                        MAX_SIZE = (200, 200)
+                        image.thumbnail(MAX_SIZE)
+                        print('LD:', localdir)
+                        image.save(os.path.join(localdir, 'tumbnails', fl.name))
+#                        client.upload_sync(
+#                            remote_path = os.path.join(remotedir, 'tumbnails', fl.name), 
+#                            local_path = os.path.join(localdir, 'tumbnails', fl.name))                       
             except BaseException as e: 
                 print('EXEPTION:', e)
         return redirect('../')
@@ -136,23 +142,32 @@ def albumcreate(request):
         albumform = AlbumModelForm(request.POST)
         if albumform.is_valid():
             album = albumform.save(commit = False)
-            albumnewfolder = ''.join(choice(digits) for i in range(12))
-            if albumnewfolder == '': album.save()
-            else:
+            album.folder = ''.join(choice(digits) for i in range(12))
+            album.save()
+            if album.local:
                 try: 
-                    os.mkdir(os.path.join(albumpath(), albumnewfolder))
-                    os.mkdir(os.path.join(albumpath(), albumnewfolder, 'tumbnails'))
-                except: pass
+                    os.mkdir(os.path.join(albumpath(), album.folder))
+                    os.mkdir(os.path.join(albumpath(), album.folder, 'tumbnails'))
+                except BaseException as e: 
+                    print('EXEPTION:', e)
                 else:
-                    album.folder = albumnewfolder
-                    album.save()
                     ownerid = request.session.get('ownerid')
                     ownerclassname = request.session.get('ownerclass')
                     if ownerclassname != None:
                         owner = eval(ownerclassname + '.objects.get(id = ownerid)')
                         if owner != None: owner.albums.add(album)
+            else:
+                data = {'webdav_hostname': settings.ASCLOUD_URL,
+                    'webdav_login': settings.ASCLOUD_NAME,
+                    'webdav_password': settings.ASCLOUD_PASSWORD}
+                client = Client(data)
+                remotedir = ALBUM_DIR + '/' + album.folder
+                if not client.check(remotedir): 
+                    client.mkdir(remotedir)
+                    client.mkdir(remotedir.join('/', 'tumbnails'))
             return redirect('../')
-    else: albumform = AlbumModelForm()
+    else: 
+        albumform = AlbumModelForm()
     context = {}
     context['status'] = ''
     context['contextmenu'] = {'Отменить':'formmethod=GET formaction=../', 'Подтвердить':'formmethod=POST'}
@@ -188,9 +203,22 @@ def albumdelete(request):
     albumid = request.GET.get('albumid')
     if albumid != None: 
         album = AlbumStore.objects.get(id = albumid)
-        try:
-            shutil.rmtree(album.get_path())
-        except Exception as e1: print('EXEPTION:', e1)
+        if album.local:
+            try:
+                shutil.rmtree(album.get_path())
+            except Exception as e1: 
+                print('EXEPTION:', e1)
+        else:
+            try:
+                data = {'webdav_hostname': settings.ASCLOUD_URL,
+                    'webdav_login': settings.ASCLOUD_NAME,
+                    'webdav_password': settings.ASCLOUD_PASSWORD}
+                client = Client(data)
+                remotedir = ALBUM_DIR + '/' + album.folder
+                if client.check(remotedir): 
+                    client.clean(remotedir)
+            except Exception as e1: 
+                print('EXEPTION:', e1)
         album.delete()
     return redirect('../')
     
