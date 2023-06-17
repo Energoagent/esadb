@@ -1,8 +1,14 @@
 {% extends "base_generic.html" %}
 {% block content %}
 		<table>
-			<thead><tr><th></th><th>НАИМЕНОВАНИЕ</th><th>ДАТА</th><th>ИНФОРМАЦИЯ</th><th>LINK</th></tr></thead>
+			<thead>
+			</thead>
 			<tbody>
+				{% for file in filelist %}
+					<tr>
+						<td>{{file}}</td>
+					</tr>
+				{% endfor%}
 			</tbody>
 		</table>
 {% endblock %}

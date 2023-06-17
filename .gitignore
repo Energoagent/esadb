@@ -6,3 +6,4 @@ media/
 *.bat
 .git
 manage.py
+client_secret_esadb.json

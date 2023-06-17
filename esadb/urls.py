@@ -13,6 +13,7 @@ urlpatterns = [
     path('albumstore/', include('albumstore.urls')),
     path('docstore/', include('docstore.urls')),
     path('contact/', include('contact.urls')),
+    path('gdiskstorage/', include('gdiskstorage.urls')),
     ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
