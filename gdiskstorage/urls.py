@@ -5,11 +5,14 @@ from gdiskstorage import views
 appname = 'gdiskstorage'
 
 urlpatterns = [
-#    path('', views.GDiskListView.as_view(), name = 'gdisklist'),
-    path('', views.gdisk_list, name = 'list'),
+    path('', views.GDiskFolderListView.as_view(), name = 'list'),
+#    path('', views.gdisk_list, name = 'list'),
+    path('detail/', views.gdiskfolder_detail, name = 'detail'),
+    path('detail/downloadimage', views.gdiskfolder_downloadimage, name = 'downloadimage'),
 #    path('detail/loadimage', views.albumloadimage, name = 'loadimage'),
 #    path('detail/deleteimage', views.albumdeleteimage, name = 'deleteimage'),
-#    path('create/', views.albumcreate, name = 'create'),
-#    path('update/', views.albumupdate, name = 'update'),
-#    path('delete/', views.albumdelete, name = 'delete')
+    path('create/', views.gdiskfolder_create, name = 'create'),
+    path('update/', views.gdiskfolder_update, name = 'update'),
+    path('delete/', views.gdiskfolder_delete, name = 'delete'),
+    
 ]
