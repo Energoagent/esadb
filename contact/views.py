@@ -186,7 +186,7 @@ def gcontactsview(request):
         results = srv['service'].people().connections().list(
             resourceName = 'people/me',
             pageSize = 10,
-            personFields = 'names').execute()
+            personFields = 'names,emailAddresses,phoneNumbers,biographies').execute()
         totalpeople = results.get('totalPeople')
         connections = results.get('connections')
 #----------------------------------------------------------

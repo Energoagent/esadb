@@ -7,8 +7,19 @@
 		<tr>
 			<td><input type="radio" name="" value=""></input></td>
 			<td>{{person.names.0.displayNameLastFirst}}</td>
-			<td> </td>
-			<td> </td>
+			<td>
+				e-mail:
+				{%for adress in person.emailAddresses%}
+					{{adress.value}}:{{adress.type}},
+				{%endfor%}
+				; phone:
+				{%for phone in person.phoneNumbers%}
+					{{phone.canonicalForm}}:{{phone.type}},
+				{%endfor%}
+			</td>
+			<td>
+				{{person.biographies.0.value}}
+			<td>
 		</tr>
 	{% endfor %}
 {% endblock %}
