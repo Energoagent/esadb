@@ -1,0 +1,6 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<p> Вы уверены, что хотите удалить: {{folder}}?</p>
+	<input type="hidden" name="albumid" value="{{folder.pk}}"></input>
+{% endblock %}

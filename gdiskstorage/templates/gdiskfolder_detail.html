@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	<tr>
+		<td>НАИМЕНОВАНИЕ: </td>
+		<td>{{folder.name}}</td>
+	</tr>
+	<tr>
+		<td>ДАТА: </td>
+		<td>{{folder.date}}</td>
+	</tr>
+	<tr>
+		<td>GOOGLE ИНФО: </td> 
+		<td>{{about}}</td>
+	</tr>
+	<tr>
+		<td>GOOGLE LINK: </td> 
+		<td>
+			<a href = "{{folder_link}}" target = "blank">google drive folder link</a>
+		</td>
+	</tr>
+	<tr><td>
+		{% for file in filelist %}
+			<tr>
+				<td>
+					<input type="checkbox" name="imgid" value="{{file.id}}:{{file.name}}"></input>
+				</td>
+				<td>
+					<a href = "{{file.webViewLink}}" target = "blank">{{file.name}}</a>
+				</td>
+			</tr>
+		{% endfor%}
+	<td></tr>
+{% endblock %}
+
+

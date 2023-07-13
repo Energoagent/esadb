@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<tr><td></td><td>ВСЕГО {{ totalpeople }}</td><td></td><td></td></tr>
+	<tr><td></td><td>ФАМИЛИЯ ИО</td><td>ДАННЫЕ</td><td>ИНФО</td></tr>
+	{% for person in connections %}
+		<tr>
+			<td><input type="radio" name="" value=""></input></td>
+			<td>{{person.names.0.displayNameLastFirst}}</td>
+			<td> </td>
+			<td> </td>
+		</tr>
+	{% endfor %}
+{% endblock %}

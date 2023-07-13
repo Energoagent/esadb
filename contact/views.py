@@ -1,12 +1,27 @@
+import os.path
+
+# import google API
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/contacts.readonly']
+
+# django modules
 from django.shortcuts import render, redirect
 from django import forms
 from django.views.decorators.http import require_http_methods
 
+# ESADB modules
 from esadbsrv.viewmods.viewcommon import CompleteListView
 from contact.models import Contact
 from org.models import Organization
 from einst.models import EInst
 from project.models import Project
+
 
 class ContactListView(CompleteListView):
     model = Contact
@@ -19,6 +34,7 @@ class ContactListView(CompleteListView):
     contextmenu = {
         'Добавить': 'formmethod=GET formaction=create/', 
         'Выбрать из справочника': 'formmethod=GET formaction=phonebook/',
+        'Выбрать из google account': 'formmethod=GET formaction=gcontacts/',
         'Просмотреть': 'formmethod=GET formaction=detail/',
         'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
@@ -137,4 +153,45 @@ def contactselectview(request):
             if cntowner != None:
                 cntowner.contacts.add(Contact.objects.get(id = contactid))
     return redirect('../../')
+
+def gcontacts_open():
+    status = None
+    creds = None
+    home_dir = os.path.expanduser('~')
+    credential_path = os.path.join(home_dir,'esadb_client_secret.json')
+    token_path = os.path.join(home_dir,'gcontacts_token.json')
+# The file token.json stores the user's access and refresh tokens, and is
+# created automatically when the authorization flow completes for the first time.
+    if os.path.exists(token_path):
+        creds = Credentials.from_authorized_user_file(token_path, SCOPES)
+# If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(credential_path, SCOPES)
+            creds = flow.run_local_server(port=0)
+# Save the credentials for the next run
+        with open(token_path, 'w') as token:
+            token.write(creds.to_json())
+    try:
+        service = build('people', 'v1', credentials=creds)    
+    except HttpError as status: pass
+    return {'service': service, 'status': status}
+    
+@require_http_methods(['GET'])
+def gcontactsview(request):
+    srv = gcontacts_open()
+    if srv['status'] == None:
+        results = srv['service'].people().connections().list(
+            resourceName = 'people/me',
+            pageSize = 10,
+            personFields = 'names').execute()
+        totalpeople = results.get('totalPeople')
+        connections = results.get('connections')
+#----------------------------------------------------------
+    context = {'status': srv['status'], 'totalpeople': totalpeople, 'connections': connections,
+        'contextmenu':{'Вернуться': 'formmethod=GET formaction=../'},
+        'subtitle':'Контакты: goole contacts list'}
+    return render(request, 'gcontacts_list.html', context = context)
 
