@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% block content %}
+		<table>
+			<thead><tr><th></th><th>НАИМЕНОВАНИЕ</th><th>ДАТА</th><th>ИНФОРМАЦИЯ</th></tr></thead>
+			<tbody>
+				{% for folder in nxcfolder_list%}
+					<tr>
+						<td><input type="radio" name="nxcfolderid" value="{{folder.pk}}"></input></td>
+						<td>{{ folder.name }}</td>
+						<td>{{ folder.date }}</td>
+						<td>{{ folder.info }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+{% endblock %}

@@ -28,6 +28,7 @@ staffsectionmenu = {
     'КОНТАКТЫ':'formmethod=get formaction=/contact/', 
     'АЛЬБОМЫ':'formmethod=get formaction=/albumstore/',
     'GDisk':'formmethod=get formaction=/gdiskstorage/',
+    'NextCloud':'formmethod=get formaction=/nxcstorage/',
     'ДОКУМЕНТЫ':'formmethod=get formaction=/docstore/',
     'ИИК':'formmethod=get formaction=/mic/',
     'ОБОРУДОВАНИЕ':'formmethod=get formaction=/equipment/',

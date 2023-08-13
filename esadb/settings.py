@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'commdevice',
     'mic',
     'gdiskstorage',
+    'nxcstorage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,6 +65,8 @@ MIDDLEWARE = [
     'einst.middleware.middleware',
     'contact.middleware.middleware',
     'channel.middleware.middleware',
+    'gdiskstorage.middleware.middleware',
+    'nxcstorage.middleware.middleware',
 ]
 
 ROOT_URLCONF = 'esadb.urls'
@@ -125,6 +128,8 @@ if DJANGO_CONFIG == 'local':
     }
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    EXPORT_DIR = os.path.join(BASE_DIR, 'export/')
+    IMPORT_DIR = os.path.join(BASE_DIR, 'import/')
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
     MEDIA_URL = '/media/'
 else:

@@ -4,9 +4,9 @@ def middleware(next):
 # Здесь выполняется обработка клиентского запроса
         path = request.path
         if path != None:
-            if path.find('gdiskstorage') == -1:
-                if 'folderid' in request.session:
-                    del request.session['folderid']
+            if path.find('nxcstorage') == -1:
+                if 'nxcfolderid' in request.session:
+                    del request.session['nxcfolderid']
                 if 'ownerclass' in request.session:
                     del request.session['ownerclass']
                 if 'ownerid' in request.session:

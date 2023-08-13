@@ -9,23 +9,23 @@
 		<td>{{folder.date}}</td>
 	</tr>
 	<tr>
-		<td>GOOGLE ИНФО: </td> 
+		<td>NextCloud by ESA ИНФО: </td> 
 		<td>{{about}}</td>
 	</tr>
 	<tr>
-		<td>GOOGLE LINK: </td> 
+		<td>NextCloud by ESA LINK: </td> 
 		<td>
-			<a href = "{{folder_link}}" target = "blank">google drive folder link</a>
+			<a href = "{{host}}{{folder_link}}" target = "blank">link</a>
 		</td>
 	</tr>
 	<tr><td>
 		{% for file in filelist %}
 			<tr>
 				<td>
-					<input type="checkbox" name="fileid" value="{{file.id}}:{{file.name}}"></input>
+					<input type="checkbox" name="filename" value="{{file.dirname}}/{{file.basename}}"></input>
 				</td>
 				<td>
-					<a href = "{{file.webViewLink}}" target = "blank">{{file.name}}</a>
+					<a href = "{{host}}{{file.href}}" target = "blank">{{file.basename}}</a>
 				</td>
 			</tr>
 		{% endfor%}

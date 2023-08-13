@@ -227,7 +227,7 @@ def gdiskfolder_detail(request):
 def gdiskfolder_downloadimage(request):
     srv = gdrive_open()
     if srv['status'] == None:
-        for item in request.GET.getlist('imgid'):
+        for item in request.GET.getlist('fileid'):
             file_id, file_name = item.split(':')
             if file_id != None:
                 request  = srv['service'].files().get_media(fileId = file_id)
@@ -273,7 +273,7 @@ def gdiskfolder_uploadimage(request):
 def gdiskfolder_deleteimage(request):
     srv = gdrive_open()
     if srv['status'] == None:
-        for item in request.GET.getlist('imgid'):
+        for item in request.GET.getlist('fileid'):
             file_id, file_name = item.split(':')
             srv['service'].files().delete(fileId = file_id).execute()
     return redirect('../')
