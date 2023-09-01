@@ -31,7 +31,7 @@ class MeterListView(CompleteListView):
     is_filtered = True
     def get_queryset(self):
         micid = self.request.GET.get('micid')
-        if micid == None: micid = self.request.request.get('micid')
+        if micid == None: micid = self.request.session.get('micid')
         if micid == None:
             return super().get_queryset()
         else:
@@ -44,8 +44,10 @@ def meterdetailview(request):
     if meterid == None: return redirect('../')
     meter = Meter.objects.get(id = meterid)
     request.session['meterid'] = meter.pk
+    request.session['dsownerclass'] = meter.__class__.__name__
+    request.session['dsownerid'] = meter.pk
     request.session.modified = True
-    context = {'status':'', 'meter':meter, 'dsownerclass': meter.__class__.__name__,
+    context = {'status':'', 'meter':meter, 
         'contextmenu':{'Изменить модель': 'formmethod=GET formaction=meterdirchoice/', 
             'Параметры': 'formmethod=GET formaction=update/',
             'Документы': 'formmethod=GET formaction=docs/',
@@ -113,6 +115,7 @@ def meterupdateview(request):
         context['meterid'] = meter.id
         return render(request, 'meter_form.html', context = context)
       
+@require_http_methods(['GET', 'POST'])
 def metercreateview(request):
     context = {}
     if request.method == 'POST':
@@ -137,6 +140,7 @@ def metercreateview(request):
     context['form'] = meterform
     return render(request, 'meter_form.html', context = context)
      
+@require_http_methods(['GET', 'POST'])
 def metercopyview(request):
     if request.method == 'POST':
         meterform = MeterModelForm(request.POST)
