@@ -10,7 +10,7 @@ class GDiskFolder(models.Model):
     class Meta:
         verbose_name = 'Папка на Google disk'
     name = models.CharField(max_length = 256, verbose_name = 'Наименование', blank = True, null = True)
-    date = models.DateField(help_text = '', verbose_name = 'Дата', default = timezone.now(), blank = True, null = True)
+    date = models.DateField(help_text = '', verbose_name = 'Дата', default = timezone.now, blank = True, null = True)
     folder = models.FilePathField(path = '', verbose_name = 'Папка', recursive = True, allow_files = False, allow_folders = True, max_length = 100)
     info = models.CharField(max_length = 256, verbose_name = 'Информация', blank = True, null = True)
     note = models.CharField(max_length = 256, verbose_name = 'Примечание', blank = True, null = True)
