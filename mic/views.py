@@ -195,6 +195,10 @@ class MtrListView(MeterListView):
 
 class CHNListView(ChannelListView):
     is_filtered = False
+    contextmenu = {'Добавить': 'formmethod=GET formaction=add/', 
+        'Просмотреть': 'formmethod=GET formaction=detail/',
+        'Удалить': 'formmethod=GET formaction=delete/',
+        'Вернуться': 'formmethod=GET formaction=../'}
 
     def get_queryset(self):
         micid = self.request.session.get('micid')

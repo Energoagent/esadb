@@ -13,7 +13,8 @@ urlpatterns = [
     path('detail/einst/', views.EInstSelectView.as_view()),
     path('detail/einst/select/', views.einstselect),
     path('detail/channel/', views.CHNListView.as_view()),
-    path('detail/channel/select/', views.channelselect),
+#    path('detail/channel/add/', views.CHNListView.as_view()),
+#    path('detail/channel/select/', views.channelselect),
     path('detail/ttnexample/', include('ttnexample.urls')),
     path('detail/meter/', include('meter.urls')),
     ]

@@ -34,7 +34,7 @@ class ContactListView(CompleteListView):
     contextmenu = {
         'Добавить': 'formmethod=GET formaction=create/', 
         'Выбрать из справочника': 'formmethod=GET formaction=phonebook/',
-        'Выбрать из google account': 'formmethod=GET formaction=gcontacts/',
+#        'Выбрать из google account': 'formmethod=GET formaction=gcontacts/',
         'Просмотреть': 'formmethod=GET formaction=detail/',
         'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
