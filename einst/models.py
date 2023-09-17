@@ -3,6 +3,7 @@ from django.db import models
 from albumstore.models import AlbumStore
 from docstore.models import DocStore
 from channel.models import Channel
+from commdevice.models import CommDevice
 from org.models import Organization
 from project.models import Project
 from contact.models import Contact
@@ -20,6 +21,7 @@ class EInst(models.Model):
     note = models.CharField(max_length = 1000, help_text = '', verbose_name = 'Примечание', blank = True, null = True)
     docs = models.ManyToManyField(DocStore)
     albums = models.ManyToManyField(AlbumStore)
+    commdevices = models.ManyToManyField(CommDevice)
     channels = models.ManyToManyField(Channel)
     
     def __str__(self):

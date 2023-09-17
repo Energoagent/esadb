@@ -50,7 +50,7 @@ def einstownerselect(request):
     einst.owner = Organization.objects.get(id = request.GET.get('orgid'))
     einst.save()
     return redirect('../../')
-
+    
 @require_http_methods(['GET'])
 def projectselect(request):
     einst = EInst.objects.get(id = request.session.get('einstid'))
@@ -97,7 +97,11 @@ def einstcreateview(request):
     if request.method == 'POST':
         eiform = EInstModelForm(request.POST)
         if eiform.is_valid():
-            einst = eiform.save(commit = True)
+            einst = eiform.save(commit = False)
+            projectid = request.session['projectid']
+            if projectid != None:
+                einst.project = Project.objects.get(id = projectid)
+            einst.save()
             request.session['einstid'] = einst.pk
             request.session.modified = True
             return redirect('../detail/')

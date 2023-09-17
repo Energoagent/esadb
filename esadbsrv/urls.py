@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from esadbsrv.viewmods import viewatcttndir, viewatcmeterdir, viewcddir
 from esadbsrv import views
+import commdevice
 
 urlpatterns = [
     path('', views.about, name = 'about'),
@@ -19,8 +20,9 @@ urlpatterns = [
     path('ttnexample/', include('ttnexample.urls')),
 # экземпляр счетчика 
     path('meter/', include('meter.urls')),
-# устройство связи, УСПД
+# устройства связи, УСПД
     path('commdevice/', include('commdevice.urls')),
+    path('commdeviceimport/', commdevice.views.cdimportview, name = 'commdevice_import'),
 # каналы связи
     path('channel/', include('channel.urls')),
 # справочник устройств связи, УСПД

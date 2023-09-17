@@ -7,6 +7,7 @@ appname = 'contact'
 urlpatterns = [
     path('', views.ContactListView.as_view()),
     path('delete/', views.contactdeleteview, name ='delete'),
+    path('exclude/', views.contactexcludeview, name ='exclude'),
     path('detail/', views.contactdetailview, name ='detail'),
     path('create/', views.contactcreateview, name ='create'),
     path('phonebook/select/', views.contactselectview, name ='phonebook_select'),

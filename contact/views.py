@@ -34,9 +34,10 @@ class ContactListView(CompleteListView):
     contextmenu = {
         'Добавить': 'formmethod=GET formaction=create/', 
         'Выбрать из справочника': 'formmethod=GET formaction=phonebook/',
+        'Исключить': 'formmethod=GET formaction=exclude/',
 #        'Выбрать из google account': 'formmethod=GET formaction=gcontacts/',
         'Просмотреть': 'formmethod=GET formaction=detail/',
-        'Удалить': 'formmethod=GET formaction=delete/',
+#        'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'}
     def get_queryset(self):
         cntownerid = self.request.GET.get('cntownerid')
@@ -141,6 +142,18 @@ def contactdeleteview(request):
     if contactid != None:
         Contact.objects.filter(id = contactid).delete()
     return redirect('../')
+
+@require_http_methods(['GET'])
+def contactexcludeview(request):
+    contactid = request.GET.get('contactid')
+    if contactid != None:
+        cntownerid = request.session.get('cntownerid')
+        cntownerclassname = request.session.get('cntownerclass')
+        if cntownerclassname != None:
+            cntowner = eval(cntownerclassname + '.objects.get(id = cntownerid)')
+            if cntowner != None:
+                cntowner.contacts.remove(Contact.objects.get(id = contactid))
+    return redirect('../../')
     
 @require_http_methods(['GET'])
 def contactselectview(request):

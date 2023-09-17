@@ -6,6 +6,7 @@ from django.views import generic
 from django.views.decorators.http import require_http_methods
 
 from commdevice.models import CommDevice
+from commdevice.utils import commdevice_import
 from esadbsrv.models import CDDirectory
 from esadbsrv.viewmods.viewcommon import CompleteListView
 from esadbsrv.viewmods.viewcddir import CDDirectoryListView
@@ -21,18 +22,37 @@ class CommDeviceListView(CompleteListView):
     paginate_by = 10
     ordering = 'cddir'
     subtitle = 'Оборудование: устройства связи'
-    is_filtered = True
-    filterkeylist = {'Тип/Модель':'cddir'}
-    contextmenu = {'Просмотреть/Изменить': 'formmethod=GET formaction=detail/',
+    is_filtered = False
+#    filterkeylist = {'Тип/Модель':'cddir'} фильтрация не работает
+    contextmenu = {
+        'Выбрать': 'formmethod=GET formaction=select/',            
+        'Просмотреть/Изменить': 'formmethod=GET formaction=detail/',
         'Добавить': 'formmethod=GET formaction=create/',
+        'Выбрать из базы': 'formmethod=GET formaction=frombase/',
+        'Исключить': 'formmethod=GET formaction=exclude/',
         'Удалить': 'formmethod=GET formaction=delete/',
-        'Вернуться': 'formmethod=GET formaction=../'}
+        'Вернуться': 'formmethod=GET formaction=../'
+        }
     def get_queryset(self):
         einstid = self.request.GET.get('einstid')
+        if einstid == None: einstid = self.request.session.get('einstid')
         if einstid == None:
             return super().get_queryset()
         else:
             return CommDevice.objects.filter(einst = einstid)
+
+class CommDeviceBaseView(CompleteListView):
+    model = CommDevice
+    template_name = 'commdevice_list.html'
+    paginate_by = 10
+    ordering = 'cddir'
+    subtitle = 'Оборудование: устройства связи'
+    is_filtered = False
+#    filterkeylist = {'Тип/Модель':'cddir'} фильтрация не работает
+    contextmenu = {
+        'Выбрать': 'formmethod=GET formaction=select/',            
+        'Вернуться': 'formmethod=GET formaction=../'
+        }
 
 #class CommDeviceChoiceView(CommDeviceListView):
 #    contextmenu = {'Выбрать':'formmethod=GET formaction=../select/',
@@ -45,18 +65,17 @@ class CommDeviceListView(CompleteListView):
 class CommDeviceModelForm(forms.ModelForm):
     class Meta:
         model = CommDevice
-        fields = ['cdmodel', 'sn', 'fbdate', 'addr', 'info', 'note']
+        fields = ['bl', 'cdmodel', 'sn', 'fbdate', 'addrtype', 'addr', 'config', 'info', 'note']
    
 @require_http_methods(['GET', 'POST'])
 def commdevicecreateview(request):
     if request.method == 'POST':
         cdform = CommDeviceModelForm(request.POST)
         if cdform.is_valid():
-            commdevice = cdform.save(commit = False)
+            commdevice = cdform.save(commit = True)
             einstid = request.session.get('einstid')
             if einstid != None:
-                commdevice.einst = EInst.objects.get(id = einstid)
-            commdevice.save()
+                EInst.objects.get(id = einstid).commdevices.add(commdevice)
             request.session['cdid'] = commdevice.pk
             request.session.modified = True
             return redirect('../' + 'detail/' + '?cdid='+ str(commdevice.id))
@@ -87,9 +106,19 @@ def commdevicedetailview(request):
 @require_http_methods(['GET'])
 def commdevicedeleteview(request):
     cdid = request.GET.get('cdid')
-    if cdid == None: ttneid = request.session.get('cdid')
+    if cdid == None: cdid = request.session.get('cdid')
     if cdid != None: CommDevice.objects.filter(id = cdid).delete()
     return redirect('../')
+
+@require_http_methods(['GET'])
+def commdeviceexcludeview(request):
+    cdid = request.GET.get('cdid')
+    if cdid != None:
+        einstid = request.session.get('einstid')
+        einst = EInst.objects.get(id = einstid)
+        if einst != None:
+            einst.commdevices.remove(CommDevice.objects.get(id = cdid))
+    return redirect('../../')
 
 @require_http_methods(['GET', 'POST'])
 def commdeviceupdateview(request):
@@ -128,4 +157,21 @@ def cddirchoiceselect(request):
             commdevice.cddir = CDDirectory.objects.get(id = cddirid)
             commdevice.save()
     return redirect('../../')
+
+@require_http_methods(['GET'])
+def cdimportview(request):
+    commdevice_import()
+    return redirect('../')
+    
+@require_http_methods(['GET'])
+def commdeviceselecteview(request):    
+    cdid = request.GET.get('cdid')
+    if cdid != None:
+        einstid = request.session.get('einstid')
+        if einstid != None:
+            einst = EInst.objects.get(id = einstid)
+            if einst != None:
+                einst.commdevices.add(CommDevice.objects.get(id = cdid))
+    return redirect('../../')
+    
        

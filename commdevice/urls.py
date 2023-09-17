@@ -12,5 +12,9 @@ urlpatterns = [
     path('detail/docs/', include('docstore.urls')),
     path('create/', views.commdevicecreateview),
     path('delete/', views.commdevicedeleteview),
+    path('exclude/', views.commdeviceexcludeview),
+    path('frombase/', views.CommDeviceBaseView.as_view()),
+    path('frombase/select/', views.commdeviceselecteview),
+    path('select/', views.commdeviceselecteview),
     path('detail/update/', views.commdeviceupdateview),
     ]

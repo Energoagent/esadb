@@ -5,19 +5,27 @@
 		<thead><tr>
 			<th></th>
 			<th>ОБЪЕКТ</th>
+			<th>ПРИНАДЛЕЖНОСТЬ</th>
 			<th>МОДЕЛЬ</th>
 			<th>СЕРИЙНЫЙ НОМЕР</th>
 			<th>СПРАВОЧНИК</th>
+			<th>ДАТА</th>
+			<th>СЕТЕВОЙ ID</th>
+			<TH>КОНФИГУРАЦИЯ</TH>
 			<th>ИНФОРМАЦИЯ</th>
 		</tr></thead>
 		<tbody>
 			{% for commdevice in commdevice_list %}
 				<tr>
 					<td><input type="radio" name="cdid" value="{{commdevice.pk}}"></input></td>
-					<td> {{ commdevice.einst }}</td>
+					<td> {{ commdevice.einst_set.first }}</td>
+					<td> {{ commdevice.bl }}</td>
 					<td> {{ commdevice.cdmodel }}</td>
 					<td> {{ commdevice.sn }}</td>
 					<td> {{ commdevice.cddir }}</td>
+					<td> {{ commdevice.fbdate }}</td>
+					<td> ({{ commdevice.addrtype }}){{ commdevice.addr }}</td>
+					<td> {{ commdevice.config }}</td>
 					<td> {{ commdevice.info }}</td>
 				</tr>
 			{% endfor %}

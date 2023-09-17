@@ -5,14 +5,16 @@
 		<tr><th><input type="hidden" name="cdid" value="{{ commdevice.id}}"></input></td> </tr>
 		<tr><th><input type="hidden" name="dsownerclass" value="{{ dsownerclass }}"></input></td> </tr>
 		<tr><th><input type="hidden" name="dsownerid" value="{{ commdevice.id}}"></input></td> </tr>
-		<tr><th>Объект:</th> <td>{{ commdevice.einst}}</td></tr>
+		<tr><th>Объект:</th> <td>{{ commdevice.einst_set.first}}</td></tr>
+		<tr><th>Принадлежность:</th> <td>{{ commdevice.bl}}</td></tr>
 		<tr><th>Серийный номер:</th> <td>{{ commdevice.sn}}</td></tr>
 		<tr><th>Тип устройства:</th> <td>{{ commdevice.cddir.cdtype }}</td></tr>
 		<tr><th>Справочник:</th> <td>{{ commdevice.cddir }}</td></tr>
 		<tr><th>Модель:</th> <td>{{ commdevice.cdmodel}}</td></tr>
-		<tr><th>Завод-производитель:</th> <td>{{ commdevice.cddir.fabric }}</td></tr>
+		<tr><th>Изготовитель:</th> <td>{{ commdevice.cddir.fabric }}</td></tr>
 		<tr><th>Дата выпуска:</th> <td>{{ commdevice.fbdate }}</td></tr>
-		<tr><th>Адрес:</th> <td>{{ commdevice.addr }}</td></tr>
+		<tr><th>Сетевой ID:</th> <td>({{ commdevice.addrtype }}){{ commdevice.addr }}</td></tr>
+		<tr><th>Конфигурация:</th> <td>{{ commdevice.config }}</td></tr>
 		<tr><th>Информация:</th> <td>{{ commdevice.info }}</td></tr>
 		<tr><th>Примечание:</th> <td>{{ commdevice.note }}</td></tr>
 	</table>

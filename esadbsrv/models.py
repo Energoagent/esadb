@@ -4,12 +4,6 @@ from django.db import models
 from django.urls import reverse
 from pathlib import Path
 
-from albumstore.models import AlbumStore
-from docstore.models import DocStore
-from einst.models import EInst
-from channel.models import Channel
-
-
 balance = [
     ('', ''),
     ('абонент', 'абонент'),

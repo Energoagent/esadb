@@ -18,7 +18,7 @@ from webdav3.client import Client
 
 from albumstore.models import AlbumStore, albumpath, ALBUM_DIR
 from esadbsrv.viewmods.viewcommon import CompleteListView
-from esadbsrv.models import EInst
+#from esadbsrv.models import EInst
 
 
 class AlbumListView(CompleteListView):
