@@ -2,13 +2,33 @@
 
 {% block content %}
 	<table>
-		<thead><tr><th></th><th>НАИМЕНОВАНИЕ</th><th>ТИП</th><th>ИДЕНТИФИКАЦИЯ</th></tr></thead>
+		<thead>
+			<tr>
+				<th>*</th>
+				<th>ОБЪЕКТ</th>
+				<th>НАИМЕНОВАНИЕ</th>
+				<th>ПРИНАДЛЕЖНОСТЬ</th>
+				<th>ТИП</th>
+				<th>ИДЕНТИФИКАТОР</th>
+				<th>НОМЕР</th>
+				<th>IP:PORT</th>
+				<th>ОПЕРАТОР</th>
+				<th>КОНФИГУРАЦИЯ</th>
+				<th>ИНФОРМАЦИЯ</th>
+				</tr></thead>
 		<tbody>
 			{% for channel in channel_list%}
 				<tr>
 					<td><input type="radio" name="channelid" value="{{channel.pk}}"></input></td>
+					<td> {{ channel.einst_set.first }} </td>
 					<td> {{ channel.name }} </td>
+					<td> {{ channel.bl }} </td>
 					<td> {{ channel.chtype }} </td>
+					<td> {{ channel.ccid }} </td>
+					<td> {{ channel.number }} </td>
+					<td> {{ channel.ip }} </td>
+					<td> {{ channel.operator }} </td>
+					<td> {{ channel.config }} </td>
 					<td> {{ channel.info }} </td>
 				</tr>
 			{% endfor %}

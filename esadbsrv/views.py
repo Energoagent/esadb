@@ -35,6 +35,7 @@ staffsectionmenu = {
     'ИМПОРТ СПР-КА ТТ ТН':'formmethod=get formaction=/atcttndirectoryimport/',
     'ИМПОРТ СПР-КА СЧЕТЧИКОВ':'formmethod=get formaction=/atcmeterdirimport/',
     'ИМПОРТ УСТРОЙСТВ СВЯЗИ':'formmethod=get formaction=/commdeviceimport/',
+    'ИМПОРТ КАНАЛОВ СВЯЗИ':'formmethod=get formaction=/channelimport/',
     }
 
 def index(request):

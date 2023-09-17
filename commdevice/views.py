@@ -30,7 +30,7 @@ class CommDeviceListView(CompleteListView):
         'Добавить': 'formmethod=GET formaction=create/',
         'Выбрать из базы': 'formmethod=GET formaction=frombase/',
         'Исключить': 'formmethod=GET formaction=exclude/',
-        'Удалить': 'formmethod=GET formaction=delete/',
+#        'Удалить': 'formmethod=GET formaction=delete/',
         'Вернуться': 'formmethod=GET formaction=../'
         }
     def get_queryset(self):
@@ -115,9 +115,10 @@ def commdeviceexcludeview(request):
     cdid = request.GET.get('cdid')
     if cdid != None:
         einstid = request.session.get('einstid')
-        einst = EInst.objects.get(id = einstid)
-        if einst != None:
-            einst.commdevices.remove(CommDevice.objects.get(id = cdid))
+        if einstid != None:
+            einst = EInst.objects.get(id = einstid)
+            if einst != None:
+                einst.commdevices.remove(CommDevice.objects.get(id = cdid))
     return redirect('../../')
 
 @require_http_methods(['GET', 'POST'])

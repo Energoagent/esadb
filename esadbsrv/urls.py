@@ -3,6 +3,7 @@ from django.urls import path, include
 from esadbsrv.viewmods import viewatcttndir, viewatcmeterdir, viewcddir
 from esadbsrv import views
 import commdevice
+import channel
 
 urlpatterns = [
     path('', views.about, name = 'about'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('commdeviceimport/', commdevice.views.cdimportview, name = 'commdevice_import'),
 # каналы связи
     path('channel/', include('channel.urls')),
+    path('channelimport/', channel.views.chimportview, name = 'channel_import'),
 # справочник устройств связи, УСПД
     path('cddirectory/', viewcddir.CDDirectoryListView.as_view(), name = 'cddirectory'),
     path('cddirectory/detail/', viewcddir.cddirectorydetailview, name ='cddirectorydetail'),

@@ -6,7 +6,7 @@ from docstore.models import DocStore
 class CommDevice(models.Model):
     class Meta:
         verbose_name = 'Устройства связи, УСПД, контроллеры'
-    bl = models.CharField(max_length = 64, help_text = '', verbose_name = 'Принадлежность', blank = True, null = True)
+    bl = models.CharField(max_length = 256, help_text = '', verbose_name = 'Принадлежность', blank = True, null = True)
     sn = models.CharField(max_length = 64, help_text = '', verbose_name = 'Заводской номер', blank = True, null = True)
     cdmodel = models.CharField(max_length = 256, help_text = '', verbose_name = 'Модель', blank = True, null = True)
     cddir = models.ForeignKey(CDDirectory, on_delete = models.SET_NULL, null = True)
