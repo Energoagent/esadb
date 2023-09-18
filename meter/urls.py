@@ -16,4 +16,8 @@ urlpatterns = [
     path('create/meterdirchoice/', views.ATCMeterDirChoiceView.as_view()),
     path('create/meterdirchoice/select/', views.metercreateview),
     path('create/', views.metercreateview),
+    path('exclude/', views.meterexcludeview),
+    path('frombase/', views.MeterBaseView.as_view()),
+    path('frombase/select/', views.meterselecteview),
+    path('select/', views.meterselecteview),
     ]

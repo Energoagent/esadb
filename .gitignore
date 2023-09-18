@@ -3,6 +3,7 @@ import/
 static/
 media/
 **/__pycache__/
+**/migrations/
 *.bat
 .git
 manage.py

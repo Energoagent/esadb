@@ -22,11 +22,16 @@ class MeterListView(CompleteListView):
     paginate_by = 10
     ordering = 'mtrdir'
     subtitle = 'Оборудование: счетчики'
-    contextmenu = {'Просмотреть/Изменить': 'formmethod=GET formaction=detail/',
+    contextmenu = {
+        'Выбрать': 'formmethod=GET formaction=select/',            
+        'Просмотреть/Изменить': 'formmethod=GET formaction=detail/',
         'Добавить': 'formmethod=GET formaction=create/',
-        'Удалить': 'formmethod=GET formaction=delete/',
+        'Выбрать из базы': 'formmethod=GET formaction=frombase/',
+        'Исключить': 'formmethod=GET formaction=exclude/',
+#        'Удалить': 'formmethod=GET formaction=delete/',
         'Копировать': 'formmethod=GET formaction=copy/',
-        'Вернуться': 'formmethod=GET formaction=../'}
+        'Вернуться': 'formmethod=GET formaction=../'
+        }
     filterkeylist = {'Серийный номер':'sn', 'Модель':'mtrmodel', 'Изготовитель':'fabric', 'номер в ГРСИ':''}
     is_filtered = True
     def get_queryset(self):
@@ -36,6 +41,19 @@ class MeterListView(CompleteListView):
             return super().get_queryset()
         else:
             return Meter.objects.filter(mic = micid)
+
+class MeterBaseView(CompleteListView):
+    model = Meter
+    template_name = 'meter_list.html'
+    paginate_by = 10
+    ordering = 'mtrdir'
+    subtitle = 'Оборудование: счетчики'
+    filterkeylist = {'Серийный номер':'sn', 'Модель':'mtrmodel', 'Изготовитель':'fabric', 'номер в ГРСИ':''}
+    is_filtered = True
+    contextmenu = {
+        'Выбрать': 'formmethod=GET formaction=select/',            
+        'Вернуться': 'formmethod=GET formaction=../'
+        }
     
 @require_http_methods(['GET'])
 def meterdetailview(request):
@@ -62,6 +80,15 @@ def meterdeleteview(request):
     if meterid == None: meterid = request.session.get('meterid')
     if meterid != None: Meter.objects.filter(id = meterid).delete()
     return redirect('../')
+
+@require_http_methods(['GET'])
+def meterexcludeview(request):
+    meterid = request.GET.get('meterid')
+    if meterid != None:
+        meter = Meter.objects.get(id = meterid)
+        meter.mic = None
+        meter.save()
+    return redirect('../../')
         
 class ATCMeterDirChoiceView(ATCMeterDirListView):
     subtitle = 'Оборудование: счетчики: выбор модели из справочника АТС'
@@ -174,4 +201,15 @@ def metercopyview(request):
         context['meterid'] = meter.id
         return render(request, 'meter_form.html', context = context)
      
+@require_http_methods(['GET'])
+def meterselecteview(request):    
+    meterid = request.GET.get('meterid')
+    if meterid != None:
+        micid = request.GET.get('micid')
+        if micid == None: micid = request.session.get('micid')
+        if micid != None:
+            meter = Meter.objects.get(id = meterid)
+            meter.mic = MIC.objects.get(id = micid)
+            meter.save()
+    return redirect('../../')
 

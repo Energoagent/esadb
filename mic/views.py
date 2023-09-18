@@ -92,7 +92,7 @@ def micdetailview(request):
             'Параметры': 'formmethod=GET formaction=update/',
             'Трансформаторы': 'formmethod=GET formaction=ttnexample/',
             'Счетчики': 'formmethod=GET formaction=meter/',
-            'Каналы связи': 'formmethod=GET formaction=channel/',
+#            'Каналы связи': 'formmethod=GET formaction=channel/',
             'Документы': 'formmethod=GET formaction=docs/',
             'Вернуться': 'formmethod=GET formaction=../'}, 
         'subtitle':'ИИК: просмотр'}
