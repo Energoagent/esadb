@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-#    'bootsrap4',
 ]
 
 MIDDLEWARE = [
@@ -65,8 +64,8 @@ MIDDLEWARE = [
     'einst.middleware.middleware',
     'contact.middleware.middleware',
     'channel.middleware.middleware',
-    'gdiskstorage.middleware.middleware',
-    'nxcstorage.middleware.middleware',
+#    'gdiskstorage.middleware.middleware',
+#    'nxcstorage.middleware.middleware',
 ]
 
 ROOT_URLCONF = 'esadb.urls'

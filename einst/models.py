@@ -33,3 +33,4 @@ class EInst(models.Model):
     def get_absolute_url(self):
         u1 = f'/einst/{self.pk}/'
         return u1
+

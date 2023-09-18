@@ -14,11 +14,9 @@ from random import choice
 from string import digits
 from PIL import Image
 
-from webdav3.client import Client
-
 from albumstore.models import AlbumStore, albumpath, ALBUM_DIR
 from esadbsrv.viewmods.viewcommon import CompleteListView
-#from esadbsrv.models import EInst
+from einst.models import EInst
 
 
 class AlbumListView(CompleteListView):
@@ -42,7 +40,6 @@ class AlbumListView(CompleteListView):
         if ownerclass == None: ownerclass = self.request.session.get('ownerclass')
         if (ownerclass == None) or (ownerid == None): return super().get_queryset()
         owner = eval(ownerclass + '.objects.get(id = ownerid)')
-#        if owner == None: return super().get_queryset()
         self.request.session['ownerclass'] = ownerclass
         self.request.session['ownerid'] = owner.id
         self.request.session.modified = True
@@ -77,36 +74,14 @@ def albumloadimage(request):
         if request.FILES != None:
             album = AlbumStore.objects.get(id = albumid)
             try:
-                if album.local:
-                    ap = os.path.join(albumpath(), album.folder)
-                    for fl in request.FILES.getlist('filelist'):
-                        with open(os.path.join(ap, fl.name), 'wb+') as destination:
-                            for chunk in fl.chunks(): destination.write(chunk)
-                        image = Image.open(os.path.join(ap, fl.name))
-                        MAX_SIZE = (200, 200)
-                        image.thumbnail(MAX_SIZE)
-                        image.save(os.path.join(ap, 'tumbnails', fl.name))
-                else:
-                    data = {'webdav_hostname': settings.ASCLOUD_URL,
-                        'webdav_login': settings.ASCLOUD_NAME,
-                        'webdav_password': settings.ASCLOUD_PASSWORD}
-                    client = Client(data)
-                    remotedir = os.path.join(ALBUM_DIR, album.folder)
-                    localdir = os.path.join(albumpath(), 'temp')
-                    for fl in request.FILES.getlist('filelist'):
-                        with open(os.path.join(localdir, fl.name), 'wb+') as destination:
-                            for chunk in fl.chunks(): destination.write(chunk)
-#                        client.upload_sync(
-#                            remote_path = os.path.join(remotedir, fl.name), 
-#                            local_path = os.path.join(localdir, fl.name))                       
-                        image = Image.open(os.path.join(localdir, fl.name))
-                        MAX_SIZE = (200, 200)
-                        image.thumbnail(MAX_SIZE)
-                        print('LD:', localdir)
-                        image.save(os.path.join(localdir, 'tumbnails', fl.name))
-#                        client.upload_sync(
-#                            remote_path = os.path.join(remotedir, 'tumbnails', fl.name), 
-#                            local_path = os.path.join(localdir, 'tumbnails', fl.name))                       
+                ap = os.path.join(albumpath(), album.folder)
+                for fl in request.FILES.getlist('filelist'):
+                    with open(os.path.join(ap, fl.name), 'wb+') as destination:
+                        for chunk in fl.chunks(): destination.write(chunk)
+                    image = Image.open(os.path.join(ap, fl.name))
+                    MAX_SIZE = (200, 200)
+                    image.thumbnail(MAX_SIZE)
+                    image.save(os.path.join(ap, 'tumbnails', fl.name))
             except BaseException as e: 
                 print('EXEPTION:', e)
         return redirect('../')
@@ -141,30 +116,26 @@ def albumcreate(request):
     if request.method == 'POST':
         albumform = AlbumModelForm(request.POST)
         if albumform.is_valid():
+            ownerid = request.GET.get('ownerid')
+            if ownerid == None: ownerid = request.session.get('ownerid')
+            ownerclass = request.GET.get('ownerclass')
+            if ownerclass == None: ownerclass = request.session.get('ownerclass')
+            if (ownerclass == None) or (ownerid == None): return super().get_queryset()
+            owner = eval(ownerclass + '.objects.get(id = ownerid)')
             album = albumform.save(commit = False)
-            album.folder = ''.join(choice(digits) for i in range(12))
+            album.folder =  owner.__str__().replace('/', '_') + '_' + album.name + ''.join(choice(digits) for i in range(12))
             album.save()
-            if album.local:
-                try: 
-                    os.mkdir(os.path.join(albumpath(), album.folder))
-                    os.mkdir(os.path.join(albumpath(), album.folder, 'tumbnails'))
-                except BaseException as e: 
-                    print('EXEPTION:', e)
-                else:
-                    ownerid = request.session.get('ownerid')
-                    ownerclassname = request.session.get('ownerclass')
-                    if ownerclassname != None:
-                        owner = eval(ownerclassname + '.objects.get(id = ownerid)')
-                        if owner != None: owner.albums.add(album)
+            try: 
+                os.mkdir(os.path.join(albumpath(), album.folder))
+                os.mkdir(os.path.join(albumpath(), album.folder, 'tumbnails'))
+            except BaseException as e: 
+                print('EXEPTION:', e)
             else:
-                data = {'webdav_hostname': settings.ASCLOUD_URL,
-                    'webdav_login': settings.ASCLOUD_NAME,
-                    'webdav_password': settings.ASCLOUD_PASSWORD}
-                client = Client(data)
-                remotedir = ALBUM_DIR + '/' + album.folder
-                if not client.check(remotedir): 
-                    client.mkdir(remotedir)
-                    client.mkdir(remotedir.join('/', 'tumbnails'))
+                ownerid = request.session.get('ownerid')
+                ownerclassname = request.session.get('ownerclass')
+                if ownerclassname != None:
+                    owner = eval(ownerclassname + '.objects.get(id = ownerid)')
+                    if owner != None: owner.albums.add(album)
             return redirect('../')
     else: 
         albumform = AlbumModelForm()
@@ -203,22 +174,10 @@ def albumdelete(request):
     albumid = request.GET.get('albumid')
     if albumid != None: 
         album = AlbumStore.objects.get(id = albumid)
-        if album.local:
-            try:
-                shutil.rmtree(album.get_path())
-            except Exception as e1: 
-                print('EXEPTION:', e1)
-        else:
-            try:
-                data = {'webdav_hostname': settings.ASCLOUD_URL,
-                    'webdav_login': settings.ASCLOUD_NAME,
-                    'webdav_password': settings.ASCLOUD_PASSWORD}
-                client = Client(data)
-                remotedir = ALBUM_DIR + '/' + album.folder
-                if client.check(remotedir): 
-                    client.clean(remotedir)
-            except Exception as e1: 
-                print('EXEPTION:', e1)
+        try:
+            shutil.rmtree(album.get_path())
+        except Exception as e1: 
+            print('EXEPTION:', e1)
         album.delete()
     return redirect('../')
     

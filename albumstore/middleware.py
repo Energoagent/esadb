@@ -4,6 +4,7 @@ def as_middleware(next):
 # Здесь выполняется обработка клиентского запроса
         path = request.path
         if path != None:
+#            print('PATH:', path)
             if path.find('albums') == -1:
                 if 'albumid' in request.session:
                     del request.session['albumid']

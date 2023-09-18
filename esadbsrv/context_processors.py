@@ -7,6 +7,7 @@ contextdict = {
     'org': 'организации',
     'organization': 'организации',
     'contact': 'контакты',
+    'contacts': 'контакты',
     'einst': 'объекты',
     'atcttndirectory': 'справочник ТТН',
     'ttnexample': 'измерительные трансформаторы',
@@ -18,17 +19,17 @@ contextdict = {
     'meter': 'счетчик',
     'create': 'создать',
     'update': 'изменить',
-    'detail': 'детали',
+#    'detail': 'детали',
     'delete': 'удалить',
     }
 
 def contextinfo(request):
     path = request.path
     pathlist = path.split('/')
-    s1 = '> '
+    s1 = 'АИИС КУЭ'
     for key in pathlist:
         if key in contextdict:
-            s1 = s1 + '> ' + contextdict[key]
+            s1 = s1 + ':' + contextdict[key]
     return {'contextinfo': s1}
     
 def addmicid(request):
